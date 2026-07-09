@@ -3,6 +3,35 @@
    JavaScript for Interactive Features
    =================================== */
 
+// Handle media uploads to media boxes
+function handleMediaUpload(event, boxId) {
+    const file = event.target.files[0];
+    if (!file) return;
+    
+    // Create a file reader to display the media
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const box = document.getElementById(boxId);
+        box.innerHTML = ''; // Clear placeholder
+        
+        if (file.type.startsWith('image/')) {
+            // If it's an image
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            box.appendChild(img);
+        } else if (file.type.startsWith('video/')) {
+            // If it's a video
+            const video = document.createElement('video');
+            video.src = e.target.result;
+            video.controls = true;
+            video.style.width = '100%';
+            video.style.height = '100%';
+            box.appendChild(video);
+        }
+    };
+    reader.readAsDataURL(file);
+}
+
 // Smooth scrolling for navigation links
 // When you click a link, the page smoothly scrolls to that section
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -35,7 +64,7 @@ const observer = new IntersectionObserver(function(entries) {
 }, observerOptions);
 
 // Target all cards and sections for the scroll animation
-document.querySelectorAll('.interest-card, .project-card, .journal-entry, .contact-card').forEach(element => {
+document.querySelectorAll('.interest-card, .project-card, .journal-entry, .contact-card, .media-box').forEach(element => {
     element.style.opacity = '0';
     element.style.transform = 'translateY(20px)';
     element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
@@ -63,45 +92,13 @@ function updateActiveNavLink() {
     navLinks.forEach(link => {
         link.style.color = 'var(--dark-text)';
         if (link.getAttribute('href').slice(1) === current) {
-            link.style.color = 'var(--purple)';
+            link.style.color = 'var(--gold)';
             link.style.fontWeight = '700';
         }
     });
 }
 
-// Button hover effect - adds a fun interaction when you hover over the CTA button
-// This code is already handled by CSS, but you can add more effects here if you want!
-
-// Contact form handling (if you want to add form functionality later)
-// You can uncomment this when you add a form to the contact section
-/*
-document.querySelector('.contact-form')?.addEventListener('submit', function(e) {
-    e.preventDefault();
-    alert('Thank you for reaching out! I will get back to you soon.');
-    this.reset();
-});
-*/
-
-// Scroll to top button (optional feature)
-// Add a button that appears when you scroll down and takes you back to the top
-window.addEventListener('scroll', () => {
-    // You can add a "back to top" button logic here
-});
-
-// Animate numbers counting up (you can use this for achievement stats later)
-function animateValue(element, start, end, duration) {
-    let startTimestamp = null;
-    const step = (timestamp) => {
-        if (!startTimestamp) startTimestamp = timestamp;
-        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-        element.textContent = Math.floor(progress * (end - start) + start);
-        if (progress < 1) {
-            window.requestAnimationFrame(step);
-        }
-    };
-    window.requestAnimationFrame(step);
-}
-
 // Console message - just for fun! 🎨
-console.log('%c✨ Welcome to NutellaWaffle\'s Website! ✨', 'color: #FFB3D9; font-size: 20px; font-weight: bold;');
+console.log('%c✨ Welcome to NutellaWaffle\'s Website! ✨', 'color: #FFD700; font-size: 20px; font-weight: bold;');
 console.log('%cHello! Thanks for visiting my website. Feel free to explore and enjoy! 🌈', 'color: #A855F7; font-size: 14px;');
+console.log('%cClick on the gold-bordered boxes in the About Me section to upload your photos and videos! 📸🎥', 'color: #FFD700; font-size: 12px;');
