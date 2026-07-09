@@ -9,6 +9,186 @@ function openModal(contentId) {
     const modalBody = document.getElementById('modal-body');
     
     const modalContents = {
+        readingInterest: {
+            title: '📖 Reading',
+            content: `
+                <h2>My Love for Reading</h2>
+                <p>I absolutely love getting lost in stories! Reading takes me to magical worlds and lets me experience different perspectives and adventures.</p>
+                <p><strong>Favorite Genres:</strong></p>
+                <ul>
+                    <li>Fantasy and adventure</li>
+                    <li>Mystery and intrigue</li>
+                    <li>Contemporary stories</li>
+                    <li>Graphic novels</li>
+                </ul>
+                <p>Every book is a new journey waiting to be explored!</p>
+            `
+        },
+        artsInterest: {
+            title: '🎨 Arts & Crafts',
+            content: `
+                <h2>Creating Beauty</h2>
+                <p>I love expressing my creativity through various art forms. Whether it's painting, drawing, or crafting, there's something magical about creating something beautiful from nothing.</p>
+                <p><strong>What I Create:</strong></p>
+                <ul>
+                    <li>Paintings and drawings</li>
+                    <li>Handmade crafts</li>
+                    <li>DIY projects</li>
+                    <li>Decorative items</li>
+                </ul>
+                <p>Art is my way of expressing emotions and ideas!</p>
+            `
+        },
+        musicInterest: {
+            title: '🎹 Piano & Violin',
+            content: `
+                <h2>Making Beautiful Music</h2>
+                <p>Music is my passion! I've been learning piano and violin, and I love the challenge of mastering difficult pieces.</p>
+                <p><strong>My Musical Journey:</strong></p>
+                <ul>
+                    <li>Piano - multiple competition wins!</li>
+                    <li>Violin - currently learning</li>
+                    <li>Classical pieces</li>
+                    <li>Performing at recitals</li>
+                </ul>
+                <p>Every note brings me joy!</p>
+            `
+        },
+        singingInterest: {
+            title: '🎤 Singing',
+            content: `
+                <h2>Expressing Through Song</h2>
+                <p>Singing is a wonderful way for me to express my emotions and connect with music on a deeper level.</p>
+                <p><strong>What I Love About Singing:</strong></p>
+                <ul>
+                    <li>Expressing emotions</li>
+                    <li>Performing for others</li>
+                    <li>Learning new songs</li>
+                    <li>The feeling of harmony</li>
+                </ul>
+                <p>My voice is a powerful tool for creativity!</p>
+            `
+        },
+        danceInterest: {
+            title: '💃 Dance',
+            content: `
+                <h2>Moving to the Beat</h2>
+                <p>Dance is pure joy! I love expressing myself through movement and performing on stage for audiences.</p>
+                <p><strong>Dance Styles I Enjoy:</strong></p>
+                <ul>
+                    <li>Contemporary</li>
+                    <li>Hip-hop</li>
+                    <li>Jazz</li>
+                    <li>Creative choreography</li>
+                </ul>
+                <p>Dance lets me feel the music in my body!</p>
+            `
+        },
+        experimentsInterest: {
+            title: '🔬 Experiments',
+            content: `
+                <h2>Discovering How Things Work</h2>
+                <p>I love experimenting! From pancake batter chemistry to cool science projects, I'm always curious about how the world works.</p>
+                <p><strong>Types of Experiments I Love:</strong></p>
+                <ul>
+                    <li>Kitchen chemistry</li>
+                    <li>Physics experiments</li>
+                    <li>DIY science projects</li>
+                    <li>Hands-on learning</li>
+                </ul>
+                <p>Science is everywhere and so exciting!</p>
+            `
+        },
+        mathInterest: {
+            title: '🧮 Challenging Math',
+            content: `
+                <h2>The Joy of Problem-Solving</h2>
+                <p>I love solving challenging math problems! There's something special about working through a difficult problem and finally understanding it.</p>
+                <p><strong>What Excites Me:</strong></p>
+                <ul>
+                    <li>Complex problem-solving</li>
+                    <li>Puzzles and riddles</li>
+                    <li>Learning new concepts</li>
+                    <li>The "aha!" moments</li>
+                </ul>
+                <p>Math challenges make my brain happy!</p>
+            `
+        },
+        germanInterest: {
+            title: '🇩🇪 Learning German',
+            content: `
+                <h2>Exploring a New Language</h2>
+                <p>I'm excited to learn German! It's a beautiful, structured language that opens up a whole new culture and way of communicating.</p>
+                <p><strong>Why German Is Fascinating:</strong></p>
+                <ul>
+                    <li>Unique sounds and structure</li>
+                    <li>German culture and traditions</li>
+                    <li>Challenge of learning something new</li>
+                    <li>Connecting with German-speaking communities</li>
+                </ul>
+                <p>Languages are keys to understanding the world!</p>
+            `
+        },
+        moviesShow: {
+            title: '🎬 Movies & Shows',
+            content: `
+                <h2>Entertainment I Love</h2>
+                <p>I enjoy exploring stories through movies and shows. They inspire me creatively and take me on emotional journeys.</p>
+                <p><strong>What I Watch:</strong></p>
+                <ul>
+                    <li>Fantasy adventures</li>
+                    <li>Inspiring dramas</li>
+                    <li>Creative animations</li>
+                    <li>Feel-good stories</li>
+                </ul>
+                <p>Great stories can change how we see the world!</p>
+            `
+        },
+        booksShow: {
+            title: '📚 Books & Stories',
+            content: `
+                <h2>Stories That Matter</h2>
+                <p>Books are my escape! I love immersing myself in different worlds and experiencing stories that make me feel inspired and connected.</p>
+                <p><strong>Stories That Move Me:</strong></p>
+                <ul>
+                    <li>Adventures in magical worlds</li>
+                    <li>Stories of courage and growth</li>
+                    <li>Tales of friendship</li>
+                    <li>Mysteries to solve</li>
+                </ul>
+                <p>Every page holds a new discovery!</p>
+            `
+        },
+        gamesShow: {
+            title: '🎮 Gaming',
+            content: `
+                <h2>Fun in the Digital World</h2>
+                <p>I enjoy gaming for the fun, challenge, and creative experiences it offers. Games are a great way to relax and explore.</p>
+                <p><strong>What I Enjoy:</strong></p>
+                <ul>
+                    <li>Adventure games</li>
+                    <li>Puzzle challenges</li>
+                    <li>Creative building games</li>
+                    <li>Immersive worlds</li>
+                </ul>
+                <p>Gaming is both fun and a creative outlet!</p>
+            `
+        },
+        musicShow: {
+            title: '🎵 Music & Playlists',
+            content: `
+                <h2>The Soundtrack to Life</h2>
+                <p>Music is everywhere in my life! I love discovering new artists and creating playlists for different moods and moments.</p>
+                <p><strong>Music I Enjoy:</strong></p>
+                <ul>
+                    <li>Pop and indie artists</li>
+                    <li>Classical compositions</li>
+                    <li>Soundtrack music</li>
+                    <li>Uplifting and positive songs</li>
+                </ul>
+                <p>The right song can change everything!</p>
+            `
+        },
         pianoProject: {
             title: '🎵 Piano & Music Journey',
             content: `
@@ -80,20 +260,6 @@ function openModal(contentId) {
                 </ul>
                 <p>Learning a new language opens up so many possibilities!</p>
             `
-        },
-        germanInterest: {
-            title: '🇩🇪 Learning German',
-            content: `
-                <h2>Why I Love Learning German</h2>
-                <p>Languages fascinate me! German is such an expressive and structured language. I love how it allows me to explore a new culture and connect with people from Germany and other German-speaking countries.</p>
-                <p><strong>What Excites Me:</strong></p>
-                <ul>
-                    <li>The unique sounds and structure of the language</li>
-                    <li>German culture, music, and traditions</li>
-                    <li>The challenge of learning something new</li>
-                    <li>Building friendships with people from German-speaking countries</li>
-                </ul>
-            `
         }
     };
     
@@ -123,19 +289,16 @@ function handleMediaUpload(event, boxId) {
     const file = event.target.files[0];
     if (!file) return;
     
-    // Create a file reader to display the media
     const reader = new FileReader();
     reader.onload = function(e) {
         const box = document.getElementById(boxId);
-        box.innerHTML = ''; // Clear placeholder
+        box.innerHTML = '';
         
         if (file.type.startsWith('image/')) {
-            // If it's an image
             const img = document.createElement('img');
             img.src = e.target.result;
             box.appendChild(img);
         } else if (file.type.startsWith('video/')) {
-            // If it's a video
             const video = document.createElement('video');
             video.src = e.target.result;
             video.controls = true;
@@ -176,7 +339,7 @@ const observer = new IntersectionObserver(function(entries) {
     });
 }, observerOptions);
 
-document.querySelectorAll('.interest-card, .project-card, .journal-entry, .contact-card, .media-box').forEach(element => {
+document.querySelectorAll('.interest-card, .entertainment-card, .project-card, .journal-entry, .contact-card, .media-box').forEach(element => {
     element.style.opacity = '0';
     element.style.transform = 'translateY(20px)';
     element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
@@ -203,13 +366,13 @@ function updateActiveNavLink() {
     navLinks.forEach(link => {
         link.style.color = 'var(--dark-text)';
         if (link.getAttribute('href').slice(1) === current) {
-            link.style.color = 'var(--gold)';
+            link.style.color = 'var(--dark-purple)';
             link.style.fontWeight = '700';
         }
     });
 }
 
 // Console message - just for fun! 🎨
-console.log('%c✨ Welcome to NutellaWaffle\'s Website! ✨', 'color: #FFD700; font-size: 20px; font-weight: bold;');
+console.log('%c✨ Welcome to NutellaWaffle\'s Website! ✨', 'color: #DA70D6; font-size: 20px; font-weight: bold;');
 console.log('%cHello! Thanks for visiting my website. Feel free to explore and enjoy! 🌈', 'color: #A855F7; font-size: 14px;');
-console.log('%cClick on the project and interest cards to learn more! 📸🎥', 'color: #FFD700; font-size: 12px;');
+console.log('%cClick on the cards to learn more! 📸🎥', 'color: #DA70D6; font-size: 12px;');
