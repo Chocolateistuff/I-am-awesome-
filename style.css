@@ -52,6 +52,7 @@ html {
     z-index: 100;
     box-shadow: 0 2px 10px rgba(168, 85, 247, 0.1);
     backdrop-filter: blur(10px);
+    border-bottom: 3px solid var(--gold);
 }
 
 .nav-container {
@@ -87,7 +88,7 @@ html {
 }
 
 .nav-links a:hover {
-    color: var(--purple);
+    color: var(--gold);
 }
 
 .nav-links a::after {
@@ -97,7 +98,7 @@ html {
     left: 0;
     width: 0;
     height: 2px;
-    background: linear-gradient(90deg, var(--primary-pink), var(--purple));
+    background: var(--gold);
     transition: width 0.3s;
 }
 
@@ -118,6 +119,7 @@ html {
     position: relative;
     overflow: hidden;
     padding: 2rem;
+    background: linear-gradient(135deg, var(--light-pink) 0%, #FFF9E6 50%, #F0E6FF 100%);
 }
 
 .hero::before {
@@ -127,8 +129,18 @@ html {
     right: -50%;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle, rgba(212, 165, 255, 0.3) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(255, 215, 0, 0.2) 0%, rgba(212, 165, 255, 0.3) 50%, transparent 70%);
     animation: floatAnimation 8s ease-in-out infinite;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-pink), var(--gold), var(--purple));
 }
 
 .hero-content {
@@ -140,11 +152,12 @@ html {
 .hero-title {
     font-size: clamp(2rem, 8vw, 4rem);
     font-weight: bold;
-    background: linear-gradient(135deg, var(--primary-pink), var(--purple), var(--turquoise));
+    background: linear-gradient(135deg, var(--primary-pink), var(--purple), var(--gold));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     margin-bottom: 1rem;
+    text-shadow: 0 2px 4px rgba(255, 215, 0, 0.2);
 }
 
 .hero-subtitle {
@@ -152,24 +165,26 @@ html {
     color: var(--dark-text);
     margin-bottom: 2rem;
     opacity: 0.8;
+    font-weight: 500;
 }
 
 .cta-button {
-    background: linear-gradient(135deg, var(--primary-pink), var(--purple));
-    color: white;
-    border: none;
+    background: linear-gradient(135deg, var(--gold), var(--rose-gold));
+    color: var(--dark-text);
+    border: 2px solid var(--gold);
     padding: 1rem 2.5rem;
     font-size: 1.1rem;
     border-radius: 50px;
     cursor: pointer;
     transition: all 0.3s;
-    box-shadow: 0 4px 15px rgba(212, 165, 255, 0.4);
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
     font-weight: 600;
 }
 
 .cta-button:hover {
     transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(212, 165, 255, 0.6);
+    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.6);
+    background: linear-gradient(135deg, var(--rose-gold), var(--gold));
 }
 
 .cta-button:active {
@@ -190,11 +205,24 @@ html {
     font-size: clamp(2rem, 5vw, 3rem);
     text-align: center;
     margin-bottom: 3rem;
-    background: linear-gradient(135deg, var(--primary-pink), var(--purple));
+    background: linear-gradient(135deg, var(--primary-pink), var(--gold), var(--purple));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     font-weight: bold;
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), transparent, var(--gold));
 }
 
 .container {
@@ -203,7 +231,7 @@ html {
 
 /* Alternate sections have different backgrounds */
 .alternate {
-    background: linear-gradient(135deg, rgba(212, 165, 255, 0.1), rgba(77, 208, 225, 0.1));
+    background: linear-gradient(135deg, rgba(212, 165, 255, 0.1), rgba(255, 215, 0, 0.05));
     border-radius: 20px;
 }
 
@@ -214,7 +242,7 @@ html {
 .about-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 2rem;
+    gap: 3rem;
     align-items: center;
 }
 
@@ -229,15 +257,79 @@ html {
     color: var(--dark-purple);
 }
 
-.about-emoji {
-    font-size: 5rem;
+/* Media boxes styling */
+.about-media-boxes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.media-box {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(244, 194, 194, 0.2));
+    border: 3px dashed var(--gold);
+    border-radius: 15px;
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+    box-shadow: inset 0 0 15px rgba(255, 215, 0, 0.1);
+}
+
+.media-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.3), transparent);
+    transition: left 0.5s;
+}
+
+.media-box:hover {
+    border-color: var(--gold);
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(244, 194, 194, 0.3));
+    box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3), inset 0 0 15px rgba(255, 215, 0, 0.15);
+    transform: translateY(-5px);
+}
+
+.media-box:hover::before {
+    left: 100%;
+}
+
+.media-placeholder {
     text-align: center;
-    animation: bobAnimation 3s ease-in-out infinite;
+    font-size: 2rem;
+    line-height: 1.8;
+    color: var(--gold);
+    font-weight: 600;
+}
+
+.media-box img,
+.media-box video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
 }
 
 /* Mobile: stack columns */
 @media (max-width: 768px) {
     .about-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .about-media-boxes {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .about-media-boxes {
         grid-template-columns: 1fr;
     }
 }
@@ -257,15 +349,16 @@ html {
     padding: 2rem;
     border-radius: 15px;
     text-align: center;
-    box-shadow: 0 4px 10px rgba(212, 165, 255, 0.2);
+    box-shadow: 0 4px 10px rgba(255, 215, 0, 0.15);
     transition: all 0.3s;
     border: 2px solid transparent;
+    border-top: 4px solid var(--gold);
 }
 
 .interest-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(212, 165, 255, 0.4);
-    border-color: var(--primary-pink);
+    box-shadow: 0 12px 30px rgba(255, 215, 0, 0.25);
+    border-color: var(--gold);
 }
 
 .interest-emoji {
@@ -301,17 +394,35 @@ html {
 }
 
 .project-card {
-    background: linear-gradient(135deg, var(--light-pink), rgba(212, 165, 255, 0.2));
+    background: linear-gradient(135deg, var(--light-pink), rgba(255, 215, 0, 0.1));
     padding: 2rem;
     border-radius: 15px;
-    border-left: 5px solid var(--primary-pink);
+    border-left: 5px solid var(--gold);
+    border-top: 3px solid var(--gold);
     transition: all 0.3s;
     position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);
+}
+
+.project-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.2), transparent);
+    transition: right 0.6s;
 }
 
 .project-card:hover {
     transform: translateX(5px);
-    box-shadow: 0 8px 20px rgba(212, 165, 255, 0.3);
+    box-shadow: 0 12px 25px rgba(255, 215, 0, 0.3);
+}
+
+.project-card:hover::before {
+    right: 100%;
 }
 
 .project-header {
@@ -339,6 +450,7 @@ html {
     border-radius: 20px;
     font-size: 0.85rem;
     font-weight: 600;
+    box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
 }
 
 /* ===================================
@@ -355,18 +467,29 @@ html {
     background: white;
     padding: 2rem;
     border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(77, 208, 225, 0.2);
-    border-top: 4px solid var(--turquoise);
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);
+    border-top: 4px solid var(--gold);
+    border-left: 4px solid var(--turquoise);
     transition: all 0.3s;
+    position: relative;
+}
+
+.journal-entry::before {
+    content: '✨';
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.5rem;
+    opacity: 0.3;
 }
 
 .journal-entry:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(77, 208, 225, 0.3);
+    box-shadow: 0 12px 25px rgba(255, 215, 0, 0.3);
 }
 
 .entry-date {
-    color: var(--turquoise);
+    color: var(--gold);
     font-weight: 600;
     font-size: 0.9rem;
     margin-bottom: 0.5rem;
@@ -389,7 +512,9 @@ html {
    =================================== */
 
 .contact-section {
-    background: linear-gradient(135deg, rgba(255, 179, 217, 0.2), rgba(212, 165, 255, 0.2));
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 179, 217, 0.2));
+    border-top: 3px solid var(--gold);
+    border-bottom: 3px solid var(--gold);
 }
 
 .contact-content {
@@ -401,6 +526,7 @@ html {
     font-size: 1.1rem;
     color: var(--dark-text);
     margin-bottom: 2rem;
+    font-weight: 500;
 }
 
 .contact-options {
@@ -413,13 +539,14 @@ html {
     background: white;
     padding: 2rem;
     border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(212, 165, 255, 0.2);
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);
+    border-top: 3px solid var(--gold);
     transition: all 0.3s;
 }
 
 .contact-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(212, 165, 255, 0.3);
+    box-shadow: 0 12px 25px rgba(255, 215, 0, 0.3);
 }
 
 .contact-card h3 {
@@ -436,20 +563,23 @@ html {
 .contact-link,
 .social-icon {
     display: inline-block;
-    background: linear-gradient(135deg, var(--primary-pink), var(--purple));
-    color: white;
+    background: linear-gradient(135deg, var(--gold), var(--rose-gold));
+    color: var(--dark-text);
     padding: 0.7rem 1.5rem;
     border-radius: 25px;
     text-decoration: none;
     transition: all 0.3s;
     margin: 0.5rem;
     font-weight: 600;
+    border: 2px solid var(--gold);
+    box-shadow: 0 2px 10px rgba(255, 215, 0, 0.3);
 }
 
 .contact-link:hover,
 .social-icon:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 15px rgba(212, 165, 255, 0.4);
+    transform: scale(1.08);
+    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
+    background: linear-gradient(135deg, var(--rose-gold), var(--gold));
 }
 
 .social-links {
@@ -468,6 +598,18 @@ html {
     text-align: center;
     padding: 2rem;
     margin-top: 2rem;
+    border-top: 3px solid var(--gold);
+    position: relative;
+}
+
+.footer::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--rose-gold), var(--gold));
 }
 
 .footer a {
@@ -479,6 +621,7 @@ html {
 
 .footer a:hover {
     color: var(--rose-gold);
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
 }
 
 /* ===================================
@@ -563,10 +706,6 @@ html {
     
     .hero-subtitle {
         font-size: 1rem;
-    }
-    
-    .about-emoji {
-        font-size: 3rem;
     }
 }
 
