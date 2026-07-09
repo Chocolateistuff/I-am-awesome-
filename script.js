@@ -10,7 +10,7 @@ function openModal(contentId) {
     
     const modalContents = {
         readingInterest: {
-            title: '📖 Reading',
+            title: 'Reading',
             content: `
                 <h2>My Love for Reading</h2>
                 <p>I absolutely love getting lost in stories! Reading takes me to magical worlds and lets me experience different perspectives and adventures.</p>
@@ -25,7 +25,7 @@ function openModal(contentId) {
             `
         },
         artsInterest: {
-            title: '🎨 Arts & Crafts',
+            title: 'Arts & Crafts',
             content: `
                 <h2>Creating Beauty</h2>
                 <p>I love expressing my creativity through various art forms. Whether it's painting, drawing, or crafting, there's something magical about creating something beautiful from nothing.</p>
@@ -40,7 +40,7 @@ function openModal(contentId) {
             `
         },
         musicInterest: {
-            title: '🎹 Piano & Violin',
+            title: 'Piano & Violin',
             content: `
                 <h2>Making Beautiful Music</h2>
                 <p>Music is my passion! I've been learning piano and violin, and I love the challenge of mastering difficult pieces.</p>
@@ -55,7 +55,7 @@ function openModal(contentId) {
             `
         },
         singingInterest: {
-            title: '🎤 Singing',
+            title: 'Singing',
             content: `
                 <h2>Expressing Through Song</h2>
                 <p>Singing is a wonderful way for me to express my emotions and connect with music on a deeper level.</p>
@@ -70,7 +70,7 @@ function openModal(contentId) {
             `
         },
         danceInterest: {
-            title: '💃 Dance',
+            title: 'Dance',
             content: `
                 <h2>Moving to the Beat</h2>
                 <p>Dance is pure joy! I love expressing myself through movement and performing on stage for audiences.</p>
@@ -85,7 +85,7 @@ function openModal(contentId) {
             `
         },
         experimentsInterest: {
-            title: '🔬 Experiments',
+            title: 'Experiments',
             content: `
                 <h2>Discovering How Things Work</h2>
                 <p>I love experimenting! From pancake batter chemistry to cool science projects, I'm always curious about how the world works.</p>
@@ -100,7 +100,7 @@ function openModal(contentId) {
             `
         },
         mathInterest: {
-            title: '🧮 Challenging Math',
+            title: 'Challenging Math',
             content: `
                 <h2>The Joy of Problem-Solving</h2>
                 <p>I love solving challenging math problems! There's something special about working through a difficult problem and finally understanding it.</p>
@@ -115,7 +115,7 @@ function openModal(contentId) {
             `
         },
         germanInterest: {
-            title: '🇩🇪 Learning German',
+            title: 'Learning German',
             content: `
                 <h2>Exploring a New Language</h2>
                 <p>I'm excited to learn German! It's a beautiful, structured language that opens up a whole new culture and way of communicating.</p>
@@ -129,68 +129,37 @@ function openModal(contentId) {
                 <p>Languages are keys to understanding the world!</p>
             `
         },
-        moviesShow: {
-            title: '🎬 Movies & Shows',
+        singlePlayer: {
+            title: 'Single Player Games',
             content: `
-                <h2>Entertainment I Love</h2>
-                <p>I enjoy exploring stories through movies and shows. They inspire me creatively and take me on emotional journeys.</p>
-                <p><strong>What I Watch:</strong></p>
+                <h2>Play Solo Games</h2>
+                <p>Enjoy fun games designed just for you! Challenge yourself and have a great time.</p>
+                <p><strong>Game Categories:</strong></p>
                 <ul>
-                    <li>Fantasy adventures</li>
-                    <li>Inspiring dramas</li>
-                    <li>Creative animations</li>
-                    <li>Feel-good stories</li>
-                </ul>
-                <p>Great stories can change how we see the world!</p>
-            `
-        },
-        booksShow: {
-            title: '📚 Books & Stories',
-            content: `
-                <h2>Stories That Matter</h2>
-                <p>Books are my escape! I love immersing myself in different worlds and experiencing stories that make me feel inspired and connected.</p>
-                <p><strong>Stories That Move Me:</strong></p>
-                <ul>
-                    <li>Adventures in magical worlds</li>
-                    <li>Stories of courage and growth</li>
-                    <li>Tales of friendship</li>
-                    <li>Mysteries to solve</li>
-                </ul>
-                <p>Every page holds a new discovery!</p>
-            `
-        },
-        gamesShow: {
-            title: '🎮 Gaming',
-            content: `
-                <h2>Fun in the Digital World</h2>
-                <p>I enjoy gaming for the fun, challenge, and creative experiences it offers. Games are a great way to relax and explore.</p>
-                <p><strong>What I Enjoy:</strong></p>
-                <ul>
+                    <li>Puzzle games</li>
                     <li>Adventure games</li>
-                    <li>Puzzle challenges</li>
-                    <li>Creative building games</li>
-                    <li>Immersive worlds</li>
+                    <li>Strategy games</li>
+                    <li>Creative games</li>
                 </ul>
-                <p>Gaming is both fun and a creative outlet!</p>
+                <p>Get ready to have fun and test your skills!</p>
             `
         },
-        musicShow: {
-            title: '🎵 Music & Playlists',
+        twoPlayer: {
+            title: 'Two Player Games',
             content: `
-                <h2>The Soundtrack to Life</h2>
-                <p>Music is everywhere in my life! I love discovering new artists and creating playlists for different moods and moments.</p>
-                <p><strong>Music I Enjoy:</strong></p>
-                <ul>
-                    <li>Pop and indie artists</li>
-                    <li>Classical compositions</li>
-                    <li>Soundtrack music</li>
-                    <li>Uplifting and positive songs</li>
-                </ul>
-                <p>The right song can change everything!</p>
+                <h2>Play With a Friend!</h2>
+                <p>Challenge a friend to fun games! Perfect for hanging out and having a competitive (or just silly) time together.</p>
+                <p><strong>Invite your friend to play:</strong></p>
+                <div class="invite-box">
+                    <p style="margin: 1rem 0; font-size: 0.9rem; color: #555;">Share this invite link with your friend:</p>
+                    <input type="text" id="inviteLink" value="https://chocolateistuff.github.io/I-am-awesome-/games?invite=friend123" readonly style="width: 100%; padding: 0.7rem; border: 2px solid var(--orchid); border-radius: 8px; margin: 0.5rem 0; font-size: 0.9rem;">
+                    <button onclick="copyInviteLink()" style="width: 100%; padding: 0.7rem; margin-top: 0.5rem; background: linear-gradient(135deg, var(--orchid), var(--deep-pink)); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">Copy Invite Link</button>
+                </div>
+                <p style="margin-top: 1.5rem; color: #666; font-size: 0.95rem;">Once your friend clicks the link, you'll be ready to play together!</p>
             `
         },
         pianoProject: {
-            title: '🎵 Piano & Music Journey',
+            title: 'Piano & Music Journey',
             content: `
                 <h2>My Piano Journey</h2>
                 <p>Music is my passion! I've been studying piano and have won multiple 1st place awards at piano competitions in my level. I'm currently working on mastering more difficult classical pieces and also learning violin.</p>
@@ -204,7 +173,7 @@ function openModal(contentId) {
             `
         },
         danceProject: {
-            title: '💃 Dance & Performance',
+            title: 'Dance & Performance',
             content: `
                 <h2>Dance & Performance</h2>
                 <p>Dance is one of my favorite ways to express creativity! I love performing on stage and moving to the beat. Whether it's hip-hop, contemporary, or any style, I enjoy expressing myself through movement.</p>
@@ -218,7 +187,7 @@ function openModal(contentId) {
             `
         },
         cardProject: {
-            title: '🎨 Card Business',
+            title: 'Card Business',
             content: `
                 <h2>My Card Business</h2>
                 <p>I'm starting my own handmade card business! I create beautiful, unique, and personalized cards for all occasions.</p>
@@ -233,7 +202,7 @@ function openModal(contentId) {
             `
         },
         lemonadeProject: {
-            title: '🍋 Lemonade Stand for Charity',
+            title: 'Lemonade Stand for Charity',
             content: `
                 <h2>Lemonade Stand for Charity</h2>
                 <p>I'm planning to run a lemonade stand and donate all the proceeds to a good cause. It's a fun way to help others while engaging with my community!</p>
@@ -247,7 +216,7 @@ function openModal(contentId) {
             `
         },
         germanProject: {
-            title: '🇩🇪 Learning German',
+            title: 'Learning German',
             content: `
                 <h2>Learning German</h2>
                 <p>I'm excited to learn German! It's a beautiful language and I love exploring new cultures and ways of communication.</p>
@@ -268,6 +237,14 @@ function openModal(contentId) {
         modalBody.innerHTML = `<h1>${content.title}</h1>${content.content}`;
         modal.style.display = 'block';
     }
+}
+
+// Copy invite link to clipboard
+function copyInviteLink() {
+    const inviteLink = document.getElementById('inviteLink');
+    inviteLink.select();
+    document.execCommand('copy');
+    alert('Invite link copied! Share it with your friend! 🎉');
 }
 
 // Close modal
@@ -339,7 +316,7 @@ const observer = new IntersectionObserver(function(entries) {
     });
 }, observerOptions);
 
-document.querySelectorAll('.interest-card, .entertainment-card, .project-card, .journal-entry, .contact-card, .media-box').forEach(element => {
+document.querySelectorAll('.interest-card, .game-card, .project-card, .journal-entry, .contact-card, .media-box').forEach(element => {
     element.style.opacity = '0';
     element.style.transform = 'translateY(20px)';
     element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
