@@ -10,12 +10,12 @@
     <!-- Navigation Bar -->
     <nav class="navbar">
         <div class="nav-container">
-            <div class="logo">🧇🍫 NutellaWaffle</div>
+            <div class="logo">✨ NutellaWaffle</div>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#interests">Interests</a></li>
-                <li><a href="#entertainment">Entertainment</a></li>
+                <li><a href="#games">Games</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#journal">Journal</a></li>
                 <li><a href="#contact">Contact</a></li>
@@ -27,7 +27,7 @@
     <section id="home" class="hero">
         <div class="hero-content">
             <h1 class="hero-title">Hello! I'm NutellaWaffle 🧇</h1>
-            <p class="hero-subtitle">A creative 7th grader exploring music, art, and imagination</p>
+            <p class="hero-subtitle">A creative 7th grader exploring music, art, science & imagination</p>
             <button class="cta-button" onclick="document.getElementById('about').scrollIntoView({behavior: 'smooth'})">Learn More About Me</button>
         </div>
         <div class="hero-decoration"></div>
@@ -39,13 +39,13 @@
             <h2 class="section-title">About Me 💫</h2>
             <div class="about-content">
                 <div class="about-text">
-                    <p>Hi! I'm a 7th grader who loves creating, learning, and experimenting with new things. I'm passionate about music, art, dance, and discovering how things work. I believe ever[...]
+                    <p>Hi! I'm a 7th grader who loves creating, learning, and experimenting with new things. I'm passionate about music, art, dance, and discovering how things work. I believe ever[...]</p>
                     <p><strong>🏆 My proudest achievement:</strong> I won 1st place at a piano competition in my level (multiple times!)</p>
                     <p><strong>🎯 Currently working on:</strong> Starting a card business and planning a lemonade stand for charity</p>
                     <p><strong>📚 Next goals:</strong> Learn calculus and master harder pieces on violin and piano</p>
                 </div>
                 <div class="about-image">
-                    <img src="https://images.unsplash.com/photo-1633722715463-d30628cad4ae?w=400&h=400&fit=crop" alt="Cute dog in flowers" style="width: 100%; border-radius: 20px; box-shadow: 0 8px 20px rgba(255, 215, 0, 0.2);">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Crect fill='%23FFE5F0' width='400' height='400'/%3E%3C/svg%3E" alt="Loading..." id="dogImage" style="width: 100%; height: auto; border-radius: 20px; box-shadow: 0 8px 20px rgba(255, 215, 0, 0.2);">
                 </div>
             </div>
         </div>
@@ -55,89 +55,91 @@
     <section id="interests" class="section alternate">
         <div class="container">
             <h2 class="section-title">My Interests 🌈</h2>
-            <div class="book-decoration book-1">📚</div>
             <div class="interests-grid">
-                <div class="interest-card" onclick="openModal('readingInterest')">
+                <div class="interest-card">
                     <div class="interest-emoji">📖</div>
                     <h3>Reading</h3>
                     <p>Getting lost in stories and exploring new worlds through books</p>
                 </div>
-                <div class="interest-card" onclick="openModal('artsInterest')">
+                <div class="interest-card">
                     <div class="interest-emoji">🎨</div>
                     <h3>Arts & Crafts</h3>
                     <p>Creating beautiful things with my hands and imagination</p>
                 </div>
-                <div class="interest-card" onclick="openModal('musicInterest')">
+                <div class="interest-card">
                     <div class="interest-emoji">🎹</div>
                     <h3>Piano & Violin</h3>
                     <p>Making beautiful music and mastering challenging pieces</p>
                 </div>
-                <div class="interest-card" onclick="openModal('singingInterest')">
+                <div class="interest-card">
                     <div class="interest-emoji">🎤</div>
                     <h3>Singing</h3>
                     <p>Expressing myself through music and performing</p>
                 </div>
-                <div class="interest-card" onclick="openModal('danceInterest')">
+                <div class="interest-card">
                     <div class="interest-emoji">💃</div>
                     <h3>Dance</h3>
                     <p>Indian dance, creative dancing, enjoying every step and movement 🎭</p>
                 </div>
-                <div class="interest-card" onclick="openModal('scienceInterest')">
+                <div class="interest-card">
                     <div class="interest-emoji">🔬</div>
                     <h3>Experiments</h3>
                     <p>From pancake batter to cool science - discovering how things work!</p>
                 </div>
-                <div class="interest-card" onclick="openModal('mathInterest')">
+                <div class="interest-card">
                     <div class="interest-emoji">🧮</div>
                     <h3>Challenging Math</h3>
                     <p>Solving those special math problems that make me excited!</p>
                 </div>
-                <div class="interest-card" onclick="openModal('languageInterest')">
-                    <div class="interest-emoji">🌍</div>
-                    <h3>Languages</h3>
-                    <p>Learning new languages and exploring different cultures</p>
-                </div>
-                <div class="interest-card" onclick="openModal('deutschInterest')">
+                <div class="interest-card">
                     <div class="interest-emoji">🇩🇪</div>
                     <h3>𝘋𝘦𝘶𝘵𝘴𝘤𝘩</h3>
                     <p>Speaking German and exploring German culture and traditions</p>
                 </div>
             </div>
-            <div class="book-decoration book-2">📖</div>
         </div>
     </section>
 
-    <!-- ENTERTAINMENT SECTION -->
-    <section id="entertainment" class="section">
+    <!-- GAMES SECTION -->
+    <section id="games" class="section">
         <div class="container">
-            <h2 class="section-title">Entertainment & Fun 🎮</h2>
-            <div class="book-decoration book-3">📚</div>
-            <div class="entertainment-grid">
-                <div class="entertainment-card">
-                    <div class="card-header">🎬 My Videos</div>
-                    <img src="https://images.pexels.com/photos/3807517/pexels-photo-3807517.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop" alt="Entertainment content" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin: 1rem 0;">
-                    <p>Check out my favorite entertainment moments!</p>
+            <h2 class="section-title">Games 🎮</h2>
+            <div class="interests-grid">
+                <div class="interest-card clickable-card">
+                    <input type="file" id="gameFile1" accept="image/*,video/*" style="display: none;" onchange="handleMediaUpload(event, 'gameBox1')">
+                    <div class="media-box" id="gameBox1" onclick="document.getElementById('gameFile1').click();">
+                        <div class="media-placeholder">
+                            <div class="empty-state">🎮</div>
+                            <div class="empty-text">Click to add</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="entertainment-card">
-                    <div class="card-header">🎭 TikTok</div>
-                    <p>Follow me on TikTok for fun and creative content!</p>
-                    <a href="#" class="social-icon">Visit TikTok</a>
+                <div class="interest-card clickable-card">
+                    <input type="file" id="gameFile2" accept="image/*,video/*" style="display: none;" onchange="handleMediaUpload(event, 'gameBox2')">
+                    <div class="media-box" id="gameBox2" onclick="document.getElementById('gameFile2').click();">
+                        <div class="media-placeholder">
+                            <div class="empty-state">🎯</div>
+                            <div class="empty-text">Click to add</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="entertainment-card">
-                    <div class="card-header">🎵 Music Playlist</div>
-                    <p>Listen to my favorite songs and discover new music with me!</p>
-                    <a href="#" class="social-icon">My Playlist</a>
+                <div class="interest-card clickable-card">
+                    <input type="file" id="gameFile3" accept="image/*,video/*" style="display: none;" onchange="handleMediaUpload(event, 'gameBox3')">
+                    <div class="media-box" id="gameBox3" onclick="document.getElementById('gameFile3').click();">
+                        <div class="media-placeholder">
+                            <div class="empty-state">🎲</div>
+                            <div class="empty-text">Click to add</div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="book-decoration book-4">📖</div>
         </div>
     </section>
 
     <!-- PROJECTS SECTION -->
-    <section id="projects" class="section alternate">
+    <section id="projects" class="section">
         <div class="container">
             <h2 class="section-title">My Projects & Activities 🚀</h2>
-            <div class="book-decoration book-5">📚</div>
             <div class="projects-grid">
                 <div class="project-card">
                     <div class="project-header">🎵</div>
@@ -164,15 +166,13 @@
                     <span class="project-status">Planning</span>
                 </div>
             </div>
-            <div class="book-decoration book-6">📖</div>
         </div>
     </section>
 
-    <!-- JOURNAL SECTION -->
-    <section id="journal" class="section">
+    <!-- LEARNING JOURNAL SECTION -->
+    <section id="journal" class="section alternate">
         <div class="container">
             <h2 class="section-title">My Learning Journal 📝</h2>
-            <div class="book-decoration book-7">📚</div>
             <div class="journal-entries">
                 <div class="journal-entry">
                     <div class="entry-date">Today's Reflection</div>
@@ -190,7 +190,6 @@
                     <p>I'm excited to learn calculus, master more difficult violin and piano pieces, expand my card business, and help others through my lemonade stand. Every goal is a new advent[...]</p>
                 </div>
             </div>
-            <div class="book-decoration book-8">📖</div>
         </div>
     </section>
 
@@ -199,23 +198,12 @@
         <div class="container">
             <h2 class="section-title">Let's Connect! 💌</h2>
             <div class="contact-content">
-                <div class="aurora-heart-container">
-                    <img src="https://images.unsplash.com/photo-1578239957117-07aa5c5d88e0?w=300&h=300&fit=crop" alt="Aurora Heart" style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%; margin: 0 auto 2rem;">
-                </div>
                 <p>I'd love to hear from you! Whether you want to chat about music, art, or just say hi!</p>
                 <div class="contact-options">
                     <div class="contact-card">
                         <h3>📧 Email</h3>
                         <p>Feel free to reach out - I'll respond as soon as I can!</p>
                         <a href="mailto:hello@nutellawaffle.com" class="contact-link">Send me an email</a>
-                    </div>
-                    <div class="contact-card">
-                        <h3>📱 Social Links</h3>
-                        <p>Connect with me on social media</p>
-                        <div class="social-links">
-                            <a href="#" class="social-icon">Instagram</a>
-                            <a href="#" class="social-icon">TikTok</a>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -231,32 +219,31 @@
     <!-- Link to JavaScript file -->
     <script src="script.js"></script>
     <script>
-        function openModal(interestId) {
-            console.log('Opening modal for:', interestId);
-            // Modal functionality can be added here
+        // Load dog image
+        function loadDogImage() {
+            const dogImg = document.getElementById('dogImage');
+            dogImg.src = 'https://images.unsplash.com/photo-1633722715463-d30628cad4ae?w=400&h=400&fit=crop';
+            dogImg.alt = 'Cute dog in flowers';
         }
 
-        // Add cute books randomly on page load
-        function addRandomBooks() {
-            const bookEmojis = ['📚', '📖', '📕', '📗', '📘', '📙'];
-            const sections = document.querySelectorAll('.section');
-            
-            sections.forEach(section => {
-                const randomCount = Math.floor(Math.random() * 3) + 1;
-                for (let i = 0; i < randomCount; i++) {
-                    const book = document.createElement('div');
-                    book.className = 'floating-book';
-                    book.textContent = bookEmojis[Math.floor(Math.random() * bookEmojis.length)];
-                    book.style.left = Math.random() * 90 + '%';
-                    book.style.top = Math.random() * 80 + '%';
-                    book.style.animationDelay = Math.random() * 2 + 's';
-                    section.style.position = 'relative';
-                    section.appendChild(book);
-                }
-            });
+        function handleMediaUpload(event, boxId) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const box = document.getElementById(boxId);
+                    const isImage = file.type.startsWith('image/');
+                    if (isImage) {
+                        box.innerHTML = `<img src="${e.target.result}" alt="Uploaded" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">`;
+                    } else {
+                        box.innerHTML = `<video width="100%" height="100%" controls style="border-radius: 8px;"><source src="${e.target.result}" type="${file.type}"></video>`;
+                    }
+                };
+                reader.readAsDataURL(file);
+            }
         }
 
-        window.addEventListener('load', addRandomBooks);
+        window.addEventListener('load', loadDogImage);
     </script>
 </body>
 </html>
