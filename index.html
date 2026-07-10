@@ -44,7 +44,7 @@
                     <p><strong>🎯 Currently working on:</strong> Starting a card business and planning a lemonade stand for charity</p>
                     <p><strong>📚 Next goals:</strong> Learn calculus and master harder pieces on violin and piano</p>
                 </div>
-                <div class="about-image">
+                <div class="about-image" style="background: linear-gradient(135deg, rgba(255, 212, 229, 0.3) 0%, rgba(224, 187, 228, 0.3) 100%); padding: 15px; border-radius: 25px;">
                     <img id="dogImage" src="" alt="Cute dog in flowers" style="width: 100%; height: auto; border-radius: 20px; box-shadow: 0 8px 20px rgba(255, 215, 0, 0.2);">
                 </div>
             </div>
@@ -242,9 +242,10 @@
 
         function loadDogImage() {
             const dogImg = document.getElementById('dogImage');
-            dogImg.src = 'https://images.unsplash.com/photo-1633722715463-d30628cad4ae?w=400&h=400&fit=crop';
+            // Higher quality image URL with larger dimensions
+            dogImg.src = 'https://images.unsplash.com/photo-1633722715463-d30628cad4ae?w=800&h=800&fit=crop&q=90';
             dogImg.onerror = function() {
-                dogImg.src = 'https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg?w=400&h=400&fit=crop';
+                dogImg.src = 'https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg?w=800&h=800&fit=crop';
             };
         }
 
