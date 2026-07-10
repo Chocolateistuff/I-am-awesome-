@@ -45,7 +45,7 @@
                     <p><strong>📚 Next goals:</strong> Learn calculus and master harder pieces on violin and piano</p>
                 </div>
                 <div class="about-image">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Crect fill='%23FFE5F0' width='400' height='400'/%3E%3C/svg%3E" alt="Loading..." id="dogImage" style="width: 100%; height: auto; border-radius: 20px; box-shadow: 0 8px 20px rgba(255, 215, 0, 0.2);">
+                    <img src="https://images.unsplash.com/photo-1633722715463-d30628cad4ae?w=400&h=400&fit=crop" alt="Cute dog in flowers" style="width: 100%; height: auto; border-radius: 20px; box-shadow: 0 8px 20px rgba(255, 215, 0, 0.2);">
                 </div>
             </div>
         </div>
@@ -106,29 +106,29 @@
             <h2 class="section-title">Games 🎮</h2>
             <div class="interests-grid">
                 <div class="interest-card clickable-card">
-                    <input type="file" id="gameFile1" accept="image/*,video/*" style="display: none;" onchange="handleMediaUpload(event, 'gameBox1')">
-                    <div class="media-box" id="gameBox1" onclick="document.getElementById('gameFile1').click();">
+                    <input type="file" id="gameFile1" accept=".html,.htm" style="display: none;" onchange="handleGameUpload(event, 'game1')">
+                    <div class="game-box" id="game1" onclick="document.getElementById('gameFile1').click();">
                         <div class="media-placeholder">
                             <div class="empty-state">🎮</div>
-                            <div class="empty-text">Click to add</div>
+                            <div class="empty-text">Click to add game</div>
                         </div>
                     </div>
                 </div>
                 <div class="interest-card clickable-card">
-                    <input type="file" id="gameFile2" accept="image/*,video/*" style="display: none;" onchange="handleMediaUpload(event, 'gameBox2')">
-                    <div class="media-box" id="gameBox2" onclick="document.getElementById('gameFile2').click();">
+                    <input type="file" id="gameFile2" accept=".html,.htm" style="display: none;" onchange="handleGameUpload(event, 'game2')">
+                    <div class="game-box" id="game2" onclick="document.getElementById('gameFile2').click();">
                         <div class="media-placeholder">
                             <div class="empty-state">🎯</div>
-                            <div class="empty-text">Click to add</div>
+                            <div class="empty-text">Click to add game</div>
                         </div>
                     </div>
                 </div>
                 <div class="interest-card clickable-card">
-                    <input type="file" id="gameFile3" accept="image/*,video/*" style="display: none;" onchange="handleMediaUpload(event, 'gameBox3')">
-                    <div class="media-box" id="gameBox3" onclick="document.getElementById('gameFile3').click();">
+                    <input type="file" id="gameFile3" accept=".html,.htm" style="display: none;" onchange="handleGameUpload(event, 'game3')">
+                    <div class="game-box" id="game3" onclick="document.getElementById('gameFile3').click();">
                         <div class="media-placeholder">
                             <div class="empty-state">🎲</div>
-                            <div class="empty-text">Click to add</div>
+                            <div class="empty-text">Click to add game</div>
                         </div>
                     </div>
                 </div>
@@ -164,6 +164,12 @@
                     <h3>Lemonade Stand for Charity</h3>
                     <p>Planning to run a lemonade stand and donate the proceeds to a good cause</p>
                     <span class="project-status">Planning</span>
+                </div>
+                <div class="project-card">
+                    <div class="project-header">🇩🇪</div>
+                    <h3>Learning German</h3>
+                    <p>Mastering a new language and diving into German culture!</p>
+                    <span class="project-status">In Progress</span>
                 </div>
             </div>
         </div>
@@ -210,6 +216,14 @@
         </div>
     </section>
 
+    <!-- Game Player Modal -->
+    <div id="gameModal" class="game-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center;">
+        <div class="game-modal-content" style="width: 95%; height: 95%; background: white; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column;">
+            <button class="game-close" onclick="closeGameModal()" style="padding: 10px 20px; background: #FF69B4; color: white; border: none; cursor: pointer; font-size: 18px; align-self: flex-start; border-radius: 0 0 10px 0;">← Back</button>
+            <iframe id="gameFrame" style="width: 100%; height: 100%; border: none; display: block; flex: 1;"></iframe>
+        </div>
+    </div>
+
     <!-- FOOTER -->
     <footer class="footer">
         <p>&copy; 2024 NutellaWaffle. Made with 💜 and creativity.</p>
@@ -219,31 +233,46 @@
     <!-- Link to JavaScript file -->
     <script src="script.js"></script>
     <script>
-        // Load dog image
-        function loadDogImage() {
-            const dogImg = document.getElementById('dogImage');
-            dogImg.src = 'https://images.unsplash.com/photo-1633722715463-d30628cad4ae?w=400&h=400&fit=crop';
-            dogImg.alt = 'Cute dog in flowers';
-        }
+        // Store game files
+        const games = {
+            game1: null,
+            game2: null,
+            game3: null
+        };
 
-        function handleMediaUpload(event, boxId) {
+        function handleGameUpload(event, gameId) {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    const box = document.getElementById(boxId);
-                    const isImage = file.type.startsWith('image/');
-                    if (isImage) {
-                        box.innerHTML = `<img src="${e.target.result}" alt="Uploaded" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">`;
-                    } else {
-                        box.innerHTML = `<video width="100%" height="100%" controls style="border-radius: 8px;"><source src="${e.target.result}" type="${file.type}"></video>`;
-                    }
+                    games[gameId] = e.target.result;
+                    const gameBox = document.getElementById(gameId);
+                    gameBox.innerHTML = `
+                        <div onclick="playGame('${gameId}')" style="cursor: pointer; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                            <div style="font-size: 3rem;">▶️</div>
+                            <div style="color: #A855F7; font-weight: 600; margin-top: 10px;">Click to play</div>
+                            <div style="color: #999; font-size: 0.9rem; margin-top: 5px;">${file.name}</div>
+                        </div>
+                    `;
                 };
                 reader.readAsDataURL(file);
             }
         }
 
-        window.addEventListener('load', loadDogImage);
+        function playGame(gameId) {
+            if (games[gameId]) {
+                const gameModal = document.getElementById('gameModal');
+                const gameFrame = document.getElementById('gameFrame');
+                gameFrame.srcdoc = games[gameId];
+                gameModal.style.display = 'flex';
+            }
+        }
+
+        function closeGameModal() {
+            const gameModal = document.getElementById('gameModal');
+            gameModal.style.display = 'none';
+            document.getElementById('gameFrame').srcdoc = '';
+        }
     </script>
 </body>
 </html>
