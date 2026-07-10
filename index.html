@@ -45,7 +45,7 @@
                     <p><strong>📚 Next goals:</strong> Learn calculus and master harder pieces on violin and piano</p>
                 </div>
                 <div class="about-image">
-                    <img src="https://images.unsplash.com/photo-1633722715463-d30628cad4ae?w=400&h=400&fit=crop" alt="Cute dog in flowers" style="width: 100%; height: auto; border-radius: 20px; box-shadow: 0 8px 20px rgba(255, 215, 0, 0.2);">
+                    <img id="dogImage" src="" alt="Cute dog in flowers" style="width: 100%; height: auto; border-radius: 20px; box-shadow: 0 8px 20px rgba(255, 215, 0, 0.2);">
                 </div>
             </div>
         </div>
@@ -220,7 +220,7 @@
     <div id="gameModal" class="game-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center;">
         <div class="game-modal-content" style="width: 95%; height: 95%; background: white; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column;">
             <button class="game-close" onclick="closeGameModal()" style="padding: 10px 20px; background: #FF69B4; color: white; border: none; cursor: pointer; font-size: 18px; align-self: flex-start; border-radius: 0 0 10px 0;">← Back</button>
-            <iframe id="gameFrame" style="width: 100%; height: 100%; border: none; display: block; flex: 1;"></iframe>
+            <iframe id="gameFrame" style="width: 100%; height: 100%; border: none; display: block; flex: 1;" sandbox="allow-same-origin allow-scripts allow-forms allow-pointer-lock"></iframe>
         </div>
     </div>
 
@@ -233,19 +233,30 @@
     <!-- Link to JavaScript file -->
     <script src="script.js"></script>
     <script>
-        // Store game files
+        // Store game files as blob URLs instead of data URLs
         const games = {
             game1: null,
             game2: null,
             game3: null
         };
 
+        function loadDogImage() {
+            const dogImg = document.getElementById('dogImage');
+            dogImg.src = 'https://images.unsplash.com/photo-1633722715463-d30628cad4ae?w=400&h=400&fit=crop';
+            dogImg.onerror = function() {
+                dogImg.src = 'https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg?w=400&h=400&fit=crop';
+            };
+        }
+
         function handleGameUpload(event, gameId) {
             const file = event.target.files[0];
-            if (file) {
+            if (file && (file.name.endsWith('.html') || file.name.endsWith('.htm'))) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    games[gameId] = e.target.result;
+                    // Create a blob URL for the HTML file
+                    const blob = new Blob([e.target.result], { type: 'text/html' });
+                    games[gameId] = URL.createObjectURL(blob);
+                    
                     const gameBox = document.getElementById(gameId);
                     gameBox.innerHTML = `
                         <div onclick="playGame('${gameId}')" style="cursor: pointer; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
@@ -255,7 +266,9 @@
                         </div>
                     `;
                 };
-                reader.readAsDataURL(file);
+                reader.readAsText(file);
+            } else {
+                alert('Please upload an HTML file (.html or .htm)');
             }
         }
 
@@ -263,7 +276,7 @@
             if (games[gameId]) {
                 const gameModal = document.getElementById('gameModal');
                 const gameFrame = document.getElementById('gameFrame');
-                gameFrame.srcdoc = games[gameId];
+                gameFrame.src = games[gameId];
                 gameModal.style.display = 'flex';
             }
         }
@@ -271,8 +284,10 @@
         function closeGameModal() {
             const gameModal = document.getElementById('gameModal');
             gameModal.style.display = 'none';
-            document.getElementById('gameFrame').srcdoc = '';
+            document.getElementById('gameFrame').src = '';
         }
+
+        window.addEventListener('load', loadDogImage);
     </script>
 </body>
 </html>
