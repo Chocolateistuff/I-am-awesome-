@@ -107,22 +107,22 @@
             <div class="interests-grid">
                 <div class="interest-card clickable-card">
                     <input type="file" id="gameFile1" accept=".html,.htm" style="display: none;" onchange="handleGameUpload(event, 'game1')">
-                    <div class="game-box" id="game1" onclick="document.getElementById('gameFile1').click();" style="cursor: pointer; position: relative; overflow: hidden;">
+                    <div class="game-box" id="game1" style="cursor: pointer; position: relative; overflow: hidden;">
                         <img id="game1Image" src="https://images.shutterstock.com/shutterstock/photos/2671821377/display_1500/stock-photo-air-hockey-game-table-with-red-pucks-and-paddles-in-neon-lighting-2671821377.jpg?w=400&h=300&fit=crop" alt="Midnight Food Crisis" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                     <div style="text-align: center; margin-top: 10px; font-weight: 600; color: #A855F7;">Midnight Food Crisis</div>
                 </div>
                 <div class="interest-card clickable-card">
                     <input type="file" id="gameFile2" accept=".html,.htm" style="display: none;" onchange="handleGameUpload(event, 'game2')">
-                    <div class="game-box" id="game2" onclick="document.getElementById('gameFile2').click();" style="cursor: pointer; position: relative; overflow: hidden;">
+                    <div class="game-box" id="game2" style="cursor: pointer; position: relative; overflow: hidden;">
                         <img id="game2Image" src="https://images.shutterstock.com/shutterstock/photos/2660861031/display_1500/stock-photo-happy-golden-retriever-holding-large-bone-treat-2660861031.jpg?w=400&h=300&fit=crop" alt="Puppy Paradise" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                     <div style="text-align: center; margin-top: 10px; font-weight: 600; color: #A855F7;">Puppy Paradise</div>
                 </div>
                 <div class="interest-card clickable-card">
                     <input type="file" id="gameFile3" accept=".html,.htm" style="display: none;" onchange="handleGameUpload(event, 'game3')">
-                    <div class="game-box" id="game3" onclick="document.getElementById('gameFile3').click();" style="cursor: pointer; position: relative; overflow: hidden;">
-                        <img id="game3Image" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%231a0a3e;stop-opacity:1' /%3E%3Cstop offset='50%25' style='stop-color:%230066ff;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%236e1d5c;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='300' fill='url(%23grad)'/%3E%3Ccircle cx='200' cy='150' r='8' fill='%23ff1493'/%3E%3Crect x='40' y='100' width='15' height='100' rx='8' fill='%23ff1493' opacity='0.8'/%3E%3Crect x='345' y='80' width='15' height='120' rx='8' fill='%23ff1493' opacity='0.8'/%3E%3Cline x1='200' y1='10' x2='200' y2='290' stroke='white' stroke-width='1' stroke-dasharray='5,5' opacity='0.3'/%3E%3C/svg%3E" alt="Air Hockey" style="width: 100%; height: 100%; object-fit: cover;">
+                    <div class="game-box" id="game3" style="cursor: pointer; position: relative; overflow: hidden;">
+                        <img id="game3Image" src="https://images.pexels.com/photos/3360617/pexels-photo-3360617.jpeg?w=400&h=300&fit=crop" alt="Air Hockey" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                     <div style="text-align: center; margin-top: 10px; font-weight: 600; color: #A855F7;">Air Hockey: 2 Player Game</div>
                     <div id="game3ShareContainer" style="text-align: center; margin-top: 8px; display: none;">
@@ -290,6 +290,9 @@
                     if (gameId === 'game3') {
                         document.getElementById('game3ShareContainer').style.display = 'block';
                     }
+                    
+                    // Reset file input
+                    document.getElementById('gameFile' + gameId.replace('game', '')).value = '';
                 };
                 reader.readAsText(file);
             } else {
@@ -384,24 +387,30 @@
             
             if (game1Box) {
                 game1Box.addEventListener('click', function(e) {
-                    if (games.game1 && e.target.id !== 'gameFile1') {
+                    if (games.game1) {
                         playGame('game1');
+                    } else {
+                        document.getElementById('gameFile1').click();
                     }
                 });
             }
             
             if (game2Box) {
                 game2Box.addEventListener('click', function(e) {
-                    if (games.game2 && e.target.id !== 'gameFile2') {
+                    if (games.game2) {
                         playGame('game2');
+                    } else {
+                        document.getElementById('gameFile2').click();
                     }
                 });
             }
             
             if (game3Box) {
                 game3Box.addEventListener('click', function(e) {
-                    if (games.game3 && e.target.id !== 'gameFile3') {
+                    if (games.game3) {
                         playGame('game3');
+                    } else {
+                        document.getElementById('gameFile3').click();
                     }
                 });
             }
