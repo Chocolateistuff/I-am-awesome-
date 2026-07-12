@@ -107,15 +107,22 @@
             <div class="interests-grid">
                 <div class="interest-card clickable-card">
                     <input type="file" id="gameFile1" accept=".html,.htm" style="display: none;" onchange="handleGameUpload(event, 'game1')">
-                    <div class="game-box" id="game1" onclick="document.getElementById('gameFile1').click();" style="cursor: pointer; background: linear-gradient(135deg, #FF6B6B 0%, #FFD93D 100%); position: relative; overflow: hidden;">
-                        <img id="game1Image" src="https://images.pexels.com/photos/3144581/pexels-photo-3144581.jpeg?w=400&h=300&fit=crop" alt="Game preview" style="width: 100%; height: 100%; object-fit: cover;">
+                    <div class="game-box" id="game1" onclick="document.getElementById('gameFile1').click();" style="cursor: pointer; position: relative; overflow: hidden;">
+                        <img id="game1Image" src="https://images.shutterstock.com/shutterstock/photos/2671821377/display_1500/stock-photo-air-hockey-game-table-with-red-pucks-and-paddles-in-neon-lighting-2671821377.jpg?w=400&h=300&fit=crop" alt="Air Hockey" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                     <div style="text-align: center; margin-top: 10px; font-weight: 600; color: #A855F7;">Midnight Food Crisis</div>
                 </div>
                 <div class="interest-card clickable-card">
+                    <input type="file" id="gameFile2" accept=".html,.htm" style="display: none;" onchange="handleGameUpload(event, 'game2')">
+                    <div class="game-box" id="game2" onclick="document.getElementById('gameFile2').click();" style="cursor: pointer; position: relative; overflow: hidden;">
+                        <img id="game2Image" src="https://images.shutterstock.com/shutterstock/photos/267182377/display_1500/stock-photo-halloween-kitchen-with-friendly-ghosts-and-cookies-overhead-view-2671821377.jpg?w=400&h=300&fit=crop" alt="Puppy Paradise" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div style="text-align: center; margin-top: 10px; font-weight: 600; color: #A855F7;">Puppy Paradise</div>
+                </div>
+                <div class="interest-card clickable-card">
                     <input type="file" id="gameFile3" accept=".html,.htm" style="display: none;" onchange="handleGameUpload(event, 'game3')">
-                    <div class="game-box" id="game3" onclick="document.getElementById('gameFile3').click();" style="cursor: pointer; background: linear-gradient(135deg, #4A90E2 0%, #7B68EE 100%); position: relative; overflow: hidden;">
-                        <img id="game3Image" src="https://images.pexels.com/photos/7974/pexels-photo.jpg?w=400&h=300&fit=crop" alt="Game preview" style="width: 100%; height: 100%; object-fit: cover;">
+                    <div class="game-box" id="game3" onclick="document.getElementById('gameFile3').click();" style="cursor: pointer; position: relative; overflow: hidden;">
+                        <img id="game3Image" src="https://images.shutterstock.com/shutterstock/photos/2671821377/display_1500/stock-photo-air-hockey-game-table-with-red-pucks-and-paddles-in-neon-lighting-2671821377.jpg?w=400&h=300&fit=crop" alt="Air Hockey" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                     <div style="text-align: center; margin-top: 10px; font-weight: 600; color: #A855F7;">Air Hockey: 2 Player Game</div>
                 </div>
@@ -223,6 +230,7 @@
         // Store game files with localStorage for persistence
         const games = {
             game1: null,
+            game2: null,
             game3: null
         };
 
@@ -239,6 +247,11 @@
             const game1Data = localStorage.getItem('game1_data');
             if (game1Data) {
                 games.game1 = game1Data;
+            }
+            // Load game2
+            const game2Data = localStorage.getItem('game2_data');
+            if (game2Data) {
+                games.game2 = game2Data;
             }
             // Load game3
             const game3Data = localStorage.getItem('game3_data');
@@ -286,19 +299,28 @@
         // Add click handlers for game boxes
         document.addEventListener('DOMContentLoaded', function() {
             const game1Box = document.getElementById('game1');
+            const game2Box = document.getElementById('game2');
             const game3Box = document.getElementById('game3');
             
             if (game1Box) {
-                game1Box.addEventListener('click', function() {
-                    if (games.game1) {
+                game1Box.addEventListener('click', function(e) {
+                    if (games.game1 && e.target.id !== 'gameFile1') {
                         playGame('game1');
                     }
                 });
             }
             
+            if (game2Box) {
+                game2Box.addEventListener('click', function(e) {
+                    if (games.game2 && e.target.id !== 'gameFile2') {
+                        playGame('game2');
+                    }
+                });
+            }
+            
             if (game3Box) {
-                game3Box.addEventListener('click', function() {
-                    if (games.game3) {
+                game3Box.addEventListener('click', function(e) {
+                    if (games.game3 && e.target.id !== 'gameFile3') {
                         playGame('game3');
                     }
                 });
