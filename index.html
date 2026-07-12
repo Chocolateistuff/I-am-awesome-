@@ -107,30 +107,33 @@
             <div class="interests-grid">
                 <div class="interest-card clickable-card">
                     <input type="file" id="gameFile1" accept=".html,.htm" style="display: none;" onchange="handleGameUpload(event, 'game1')">
-                    <div class="game-box" id="game1" onclick="document.getElementById('gameFile1').click();">
+                    <div class="game-box" id="game1" onclick="document.getElementById('gameFile1').click();" style="cursor: pointer;">
                         <div class="media-placeholder">
                             <div class="empty-state">🎮</div>
                             <div class="empty-text">Click to add game</div>
                         </div>
                     </div>
+                    <div style="text-align: center; margin-top: 10px; font-weight: 600; color: #A855F7;">Midnight Food Crisis</div>
                 </div>
                 <div class="interest-card clickable-card">
                     <input type="file" id="gameFile2" accept=".html,.htm" style="display: none;" onchange="handleGameUpload(event, 'game2')">
-                    <div class="game-box" id="game2" onclick="document.getElementById('gameFile2').click();">
+                    <div class="game-box" id="game2" onclick="document.getElementById('gameFile2').click();" style="cursor: pointer;">
                         <div class="media-placeholder">
                             <div class="empty-state">🎯</div>
                             <div class="empty-text">Click to add game</div>
                         </div>
                     </div>
+                    <div style="text-align: center; margin-top: 10px; font-weight: 600; color: #A855F7;">Puppy Paradise</div>
                 </div>
                 <div class="interest-card clickable-card">
                     <input type="file" id="gameFile3" accept=".html,.htm" style="display: none;" onchange="handleGameUpload(event, 'game3')">
-                    <div class="game-box" id="game3" onclick="document.getElementById('gameFile3').click();">
+                    <div class="game-box" id="game3" onclick="document.getElementById('gameFile3').click();" style="cursor: pointer;">
                         <div class="media-placeholder">
                             <div class="empty-state">🎲</div>
                             <div class="empty-text">Click to add game</div>
                         </div>
                     </div>
+                    <div style="text-align: center; margin-top: 10px; font-weight: 600; color: #A855F7;">Air Hockey: 2 Player Game</div>
                 </div>
             </div>
         </div>
@@ -233,20 +236,132 @@
     <!-- Link to JavaScript file -->
     <script src="script.js"></script>
     <script>
-        // Store game files as blob URLs instead of data URLs
+        // Store game files with localStorage for persistence
         const games = {
             game1: null,
             game2: null,
             game3: null
         };
 
+        // Game preview SVGs
+        const gameSVGs = {
+            game1: `<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;">
+                <defs>
+                    <linearGradient id="kitchenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#F5DEB3;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#DEB887;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <rect width="300" height="200" fill="url(#kitchenGrad)"/>
+                <!-- Chef head -->
+                <circle cx="80" cy="80" r="25" fill="#F4A460"/>
+                <rect x="60" y="50" width="40" height="20" fill="white" rx="10"/>
+                <!-- Chef smile -->
+                <path d="M 75 85 Q 80 90 85 85" stroke="black" stroke-width="2" fill="none"/>
+                <!-- Chef eyes -->
+                <circle cx="72" cy="78" r="2" fill="black"/>
+                <circle cx="88" cy="78" r="2" fill="black"/>
+                <!-- Ghost 1 -->
+                <ellipse cx="180" cy="90" rx="20" ry="25" fill="white" stroke="black" stroke-width="1"/>
+                <circle cx="175" cy="85" r="2" fill="black"/>
+                <circle cx="185" cy="85" r="2" fill="black"/>
+                <path d="M 180 92 Q 178 95 180 98" stroke="black" stroke-width="2" fill="none"/>
+                <!-- Ghost 2 -->
+                <ellipse cx="230" cy="100" rx="18" ry="22" fill="white" stroke="black" stroke-width="1"/>
+                <circle cx="226" cy="96" r="2" fill="black"/>
+                <circle cx="234" cy="96" r="2" fill="black"/>
+                <path d="M 230 103 Q 228 106 230 109" stroke="black" stroke-width="2" fill="none"/>
+            </svg>`,
+            game2: `<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;">
+                <defs>
+                    <linearGradient id="sunsetGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#FFB347;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#FF6B6B;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <rect width="300" height="200" fill="url(#sunsetGrad)"/>
+                <!-- Sun -->
+                <circle cx="200" cy="30" r="20" fill="#FFD700"/>
+                <!-- Puppy body -->
+                <ellipse cx="100" cy="120" rx="35" ry="40" fill="#D4A574"/>
+                <!-- Puppy head -->
+                <circle cx="100" cy="75" r="25" fill="#D4A574"/>
+                <!-- Ears -->
+                <ellipse cx="85" cy="55" rx="8" ry="15" fill="#8B6914"/>
+                <ellipse cx="115" cy="55" rx="8" ry="15" fill="#8B6914"/>
+                <!-- Eyes -->
+                <circle cx="93" cy="70" r="3" fill="black"/>
+                <circle cx="107" cy="70" r="3" fill="black"/>
+                <!-- Nose -->
+                <circle cx="100" cy="80" r="3" fill="black"/>
+                <!-- Tail -->
+                <path d="M 130 110 Q 160 100 155 70" stroke="#D4A574" stroke-width="12" fill="none" stroke-linecap="round"/>
+                <!-- Bones -->
+                <g transform="translate(50, 130)">
+                    <rect x="0" y="5" width="20" height="8" rx="4" fill="white" stroke="black" stroke-width="1"/>
+                    <circle cx="5" cy="9" r="3" fill="white" stroke="black" stroke-width="1"/>
+                    <circle cx="15" cy="9" r="3" fill="white" stroke="black" stroke-width="1"/>
+                </g>
+                <g transform="translate(210, 140)">
+                    <rect x="0" y="5" width="20" height="8" rx="4" fill="white" stroke="black" stroke-width="1"/>
+                    <circle cx="5" cy="9" r="3" fill="white" stroke="black" stroke-width="1"/>
+                    <circle cx="15" cy="9" r="3" fill="white" stroke="black" stroke-width="1"/>
+                </g>
+                <!-- Human -->
+                <circle cx="250" cy="100" r="12" fill="#F4A460"/>
+                <rect x="242" y="115" width="16" height="20" fill="#FF6347"/>
+                <line x1="242" y1="125" x2="235" y2="140" stroke="#FFD700" stroke-width="2"/>
+                <line x1="258" y1="125" x2="265" y2="140" stroke="#FFD700" stroke-width="2"/>
+            </svg>`,
+            game3: `<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;">
+                <rect width="300" height="200" fill="#4A90E2"/>
+                <!-- Left paddle -->
+                <rect x="20" y="60" width="10" height="60" rx="5" fill="#9B59B6"/>
+                <!-- Right paddle -->
+                <rect x="270" y="80" width="10" height="50" rx="5" fill="#9B59B6"/>
+                <!-- Puck -->
+                <circle cx="150" cy="100" r="12" fill="#9B59B6"/>
+                <!-- Puck details -->
+                <circle cx="150" cy="100" r="12" fill="none" stroke="#7B3F9C" stroke-width="2"/>
+                <!-- Center line -->
+                <line x1="150" y1="10" x2="150" y2="190" stroke="white" stroke-width="1" stroke-dasharray="5,5" opacity="0.5"/>
+            </svg>`
+        };
+
         function loadDogImage() {
             const dogImg = document.getElementById('dogImage');
-            // Higher quality image URL with larger dimensions
             dogImg.src = 'https://images.unsplash.com/photo-1633722715463-d30628cad4ae?w=800&h=800&fit=crop&q=90';
             dogImg.onerror = function() {
                 dogImg.src = 'https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg?w=800&h=800&fit=crop';
             };
+        }
+
+        function loadGamesFromStorage() {
+            // Load game1
+            const game1Data = localStorage.getItem('game1_data');
+            if (game1Data) {
+                games.game1 = game1Data;
+                displayGamePreview('game1');
+            }
+            // Load game2
+            const game2Data = localStorage.getItem('game2_data');
+            if (game2Data) {
+                games.game2 = game2Data;
+                displayGamePreview('game2');
+            }
+            // Load game3
+            const game3Data = localStorage.getItem('game3_data');
+            if (game3Data) {
+                games.game3 = game3Data;
+                displayGamePreview('game3');
+            }
+        }
+
+        function displayGamePreview(gameId) {
+            const gameBox = document.getElementById(gameId);
+            gameBox.innerHTML = gameSVGs[gameId];
+            gameBox.style.cursor = 'pointer';
+            gameBox.onclick = function() { playGame(gameId); };
         }
 
         function handleGameUpload(event, gameId) {
@@ -254,18 +369,12 @@
             if (file && (file.name.endsWith('.html') || file.name.endsWith('.htm'))) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    // Create a blob URL for the HTML file
-                    const blob = new Blob([e.target.result], { type: 'text/html' });
-                    games[gameId] = URL.createObjectURL(blob);
+                    // Store in localStorage for persistence
+                    localStorage.setItem(gameId + '_data', e.target.result);
+                    localStorage.setItem(gameId + '_filename', file.name);
                     
-                    const gameBox = document.getElementById(gameId);
-                    gameBox.innerHTML = `
-                        <div onclick="playGame('${gameId}')" style="cursor: pointer; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                            <div style="font-size: 3rem;">▶️</div>
-                            <div style="color: #A855F7; font-weight: 600; margin-top: 10px;">Click to play</div>
-                            <div style="color: #999; font-size: 0.9rem; margin-top: 5px;">${file.name}</div>
-                        </div>
-                    `;
+                    // Update display
+                    displayGamePreview(gameId);
                 };
                 reader.readAsText(file);
             } else {
@@ -277,7 +386,10 @@
             if (games[gameId]) {
                 const gameModal = document.getElementById('gameModal');
                 const gameFrame = document.getElementById('gameFrame');
-                gameFrame.src = games[gameId];
+                
+                // Create blob from stored data
+                const blob = new Blob([games[gameId]], { type: 'text/html' });
+                gameFrame.src = URL.createObjectURL(blob);
                 gameModal.style.display = 'flex';
             }
         }
@@ -288,7 +400,10 @@
             document.getElementById('gameFrame').src = '';
         }
 
-        window.addEventListener('load', loadDogImage);
+        window.addEventListener('load', function() {
+            loadDogImage();
+            loadGamesFromStorage();
+        });
     </script>
 </body>
 </html>
