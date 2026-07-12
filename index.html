@@ -108,21 +108,14 @@
                 <div class="interest-card clickable-card">
                     <input type="file" id="gameFile1" accept=".html,.htm" style="display: none;" onchange="handleGameUpload(event, 'game1')">
                     <div class="game-box" id="game1" onclick="document.getElementById('gameFile1').click();" style="cursor: pointer; background: linear-gradient(135deg, #FF6B6B 0%, #FFD93D 100%); position: relative; overflow: hidden;">
-                        <img id="game1Image" src="https://images.pexels.com/photos/3144581/pexels-photo-3144581.jpeg?w=400&h=300&fit=crop" alt="Game preview" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.9;">
+                        <img id="game1Image" src="https://images.pexels.com/photos/3144581/pexels-photo-3144581.jpeg?w=400&h=300&fit=crop" alt="Game preview" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                     <div style="text-align: center; margin-top: 10px; font-weight: 600; color: #A855F7;">Midnight Food Crisis</div>
                 </div>
                 <div class="interest-card clickable-card">
-                    <input type="file" id="gameFile2" accept=".html,.htm" style="display: none;" onchange="handleGameUpload(event, 'game2')">
-                    <div class="game-box" id="game2" onclick="document.getElementById('gameFile2').click();" style="cursor: pointer; background: linear-gradient(135deg, #FF9A56 0%, #FFB88C 100%); position: relative; overflow: hidden;">
-                        <img id="game2Image" src="https://images.pexels.com/photos/1904105/pexels-photo-1904105.jpeg?w=400&h=300&fit=crop" alt="Game preview" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.85;">
-                    </div>
-                    <div style="text-align: center; margin-top: 10px; font-weight: 600; color: #A855F7;">Puppy Paradise</div>
-                </div>
-                <div class="interest-card clickable-card">
                     <input type="file" id="gameFile3" accept=".html,.htm" style="display: none;" onchange="handleGameUpload(event, 'game3')">
                     <div class="game-box" id="game3" onclick="document.getElementById('gameFile3').click();" style="cursor: pointer; background: linear-gradient(135deg, #4A90E2 0%, #7B68EE 100%); position: relative; overflow: hidden;">
-                        <img id="game3Image" src="https://images.pexels.com/photos/7974/pexels-photo.jpg?w=400&h=300&fit=crop" alt="Game preview" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.85;">
+                        <img id="game3Image" src="https://images.pexels.com/photos/7974/pexels-photo.jpg?w=400&h=300&fit=crop" alt="Game preview" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                     <div style="text-align: center; margin-top: 10px; font-weight: 600; color: #A855F7;">Air Hockey: 2 Player Game</div>
                 </div>
@@ -230,7 +223,6 @@
         // Store game files with localStorage for persistence
         const games = {
             game1: null,
-            game2: null,
             game3: null
         };
 
@@ -247,27 +239,12 @@
             const game1Data = localStorage.getItem('game1_data');
             if (game1Data) {
                 games.game1 = game1Data;
-                displayGameLoaded('game1');
-            }
-            // Load game2
-            const game2Data = localStorage.getItem('game2_data');
-            if (game2Data) {
-                games.game2 = game2Data;
-                displayGameLoaded('game2');
             }
             // Load game3
             const game3Data = localStorage.getItem('game3_data');
             if (game3Data) {
                 games.game3 = game3Data;
-                displayGameLoaded('game3');
             }
-        }
-
-        function displayGameLoaded(gameId) {
-            const gameBox = document.getElementById(gameId);
-            gameBox.innerHTML = '<div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #A855F7 0%, #EC4899 100%); font-size: 3rem; color: white;">▶️</div>';
-            gameBox.style.cursor = 'pointer';
-            gameBox.onclick = function() { playGame(gameId); };
         }
 
         function handleGameUpload(event, gameId) {
@@ -279,8 +256,8 @@
                     localStorage.setItem(gameId + '_data', e.target.result);
                     localStorage.setItem(gameId + '_filename', file.name);
                     
-                    // Update display
-                    displayGameLoaded(gameId);
+                    // Update games object
+                    games[gameId] = e.target.result;
                 };
                 reader.readAsText(file);
             } else {
@@ -305,6 +282,28 @@
             gameModal.style.display = 'none';
             document.getElementById('gameFrame').src = '';
         }
+
+        // Add click handlers for game boxes
+        document.addEventListener('DOMContentLoaded', function() {
+            const game1Box = document.getElementById('game1');
+            const game3Box = document.getElementById('game3');
+            
+            if (game1Box) {
+                game1Box.addEventListener('click', function() {
+                    if (games.game1) {
+                        playGame('game1');
+                    }
+                });
+            }
+            
+            if (game3Box) {
+                game3Box.addEventListener('click', function() {
+                    if (games.game3) {
+                        playGame('game3');
+                    }
+                });
+            }
+        });
 
         window.addEventListener('load', function() {
             loadDogImage();
