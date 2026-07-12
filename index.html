@@ -122,9 +122,12 @@
                 <div class="interest-card clickable-card">
                     <input type="file" id="gameFile3" accept=".html,.htm" style="display: none;" onchange="handleGameUpload(event, 'game3')">
                     <div class="game-box" id="game3" onclick="document.getElementById('gameFile3').click();" style="cursor: pointer; position: relative; overflow: hidden;">
-                        <img id="game3Image" src="https://images.shutterstock.com/shutterstock/photos/2671821377/display_1500/stock-photo-air-hockey-game-table-with-red-pucks-and-paddles-in-neon-lighting-2671821377.jpg?w=400&h=300&fit=crop" alt="Air Hockey" style="width: 100%; height: 100%; object-fit: cover;">
+                        <img id="game3Image" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%231a0a3e;stop-opacity:1' /%3E%3Cstop offset='50%25' style='stop-color:%230066ff;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%236e1d5c;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='300' fill='url(%23grad)'/%3E%3Ccircle cx='200' cy='150' r='8' fill='%23ff1493'/%3E%3Crect x='40' y='100' width='15' height='100' rx='8' fill='%23ff1493' opacity='0.8'/%3E%3Crect x='345' y='80' width='15' height='120' rx='8' fill='%23ff1493' opacity='0.8'/%3E%3Cline x1='200' y1='10' x2='200' y2='290' stroke='white' stroke-width='1' stroke-dasharray='5,5' opacity='0.3'/%3E%3C/svg%3E" alt="Air Hockey" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                     <div style="text-align: center; margin-top: 10px; font-weight: 600; color: #A855F7;">Air Hockey: 2 Player Game</div>
+                    <div id="game3ShareContainer" style="text-align: center; margin-top: 8px; display: none;">
+                        <button onclick="copyGameLink('game3')" style="background: linear-gradient(135deg, #A855F7 0%, #EC4899 100%); color: white; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; font-size: 14px; font-weight: 600;">📋 Copy Share Link</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -218,6 +221,12 @@
         </div>
     </div>
 
+    <!-- Shared Game Player Page (hidden until needed) -->
+    <div id="sharedGamePlayer" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 3000;">
+        <button onclick="closeSharedGame()" style="position: fixed; top: 20px; left: 20px; padding: 10px 20px; background: #FF69B4; color: white; border: none; cursor: pointer; font-size: 16px; border-radius: 20px; z-index: 3001;">← Back</button>
+        <iframe id="sharedGameFrame" style="width: 100%; height: 100%; border: none;"></iframe>
+    </div>
+
     <!-- FOOTER -->
     <footer class="footer">
         <p>&copy; 2024 NutellaWaffle. Made with 💜 and creativity.</p>
@@ -233,6 +242,10 @@
             game2: null,
             game3: null
         };
+
+        // Check if this is a shared game view
+        const urlParams = new URLSearchParams(window.location.search);
+        const sharedGameId = urlParams.get('play');
 
         function loadDogImage() {
             const dogImg = document.getElementById('dogImage');
@@ -257,6 +270,7 @@
             const game3Data = localStorage.getItem('game3_data');
             if (game3Data) {
                 games.game3 = game3Data;
+                document.getElementById('game3ShareContainer').style.display = 'block';
             }
         }
 
@@ -271,6 +285,11 @@
                     
                     // Update games object
                     games[gameId] = e.target.result;
+                    
+                    // Show share button if game3
+                    if (gameId === 'game3') {
+                        document.getElementById('game3ShareContainer').style.display = 'block';
+                    }
                 };
                 reader.readAsText(file);
             } else {
@@ -294,6 +313,67 @@
             const gameModal = document.getElementById('gameModal');
             gameModal.style.display = 'none';
             document.getElementById('gameFrame').src = '';
+        }
+
+        function copyGameLink(gameId) {
+            if (!games[gameId]) {
+                alert('Please upload a game first!');
+                return;
+            }
+            
+            const gameLink = window.location.origin + window.location.pathname + '?play=' + gameId;
+            navigator.clipboard.writeText(gameLink).then(function() {
+                alert('Share link copied! 📋 Send this link to friends to play together!');
+            }).catch(function(err) {
+                // Fallback for older browsers
+                const textarea = document.createElement('textarea');
+                textarea.value = gameLink;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                alert('Share link copied! 📋 Send this link to friends to play together!');
+            });
+        }
+
+        function playSharedGame() {
+            if (sharedGameId && games[sharedGameId]) {
+                const sharedPlayer = document.getElementById('sharedGamePlayer');
+                const sharedFrame = document.getElementById('sharedGameFrame');
+                
+                // Create blob from stored data
+                const blob = new Blob([games[sharedGameId]], { type: 'text/html' });
+                sharedFrame.src = URL.createObjectURL(blob);
+                sharedPlayer.style.display = 'block';
+                
+                // Hide main content
+                document.querySelector('nav').style.display = 'none';
+                document.querySelector('.hero').style.display = 'none';
+                document.getElementById('about').style.display = 'none';
+                document.getElementById('interests').style.display = 'none';
+                document.getElementById('games').style.display = 'none';
+                document.getElementById('projects').style.display = 'none';
+                document.getElementById('journal').style.display = 'none';
+                document.getElementById('contact').style.display = 'none';
+                document.querySelector('footer').style.display = 'none';
+            }
+        }
+
+        function closeSharedGame() {
+            const sharedPlayer = document.getElementById('sharedGamePlayer');
+            sharedPlayer.style.display = 'none';
+            document.getElementById('sharedGameFrame').src = '';
+            
+            // Show main content again
+            document.querySelector('nav').style.display = 'block';
+            document.querySelector('.hero').style.display = 'block';
+            document.getElementById('about').style.display = 'block';
+            document.getElementById('interests').style.display = 'block';
+            document.getElementById('games').style.display = 'block';
+            document.getElementById('projects').style.display = 'block';
+            document.getElementById('journal').style.display = 'block';
+            document.getElementById('contact').style.display = 'block';
+            document.querySelector('footer').style.display = 'block';
         }
 
         // Add click handlers for game boxes
@@ -330,6 +410,11 @@
         window.addEventListener('load', function() {
             loadDogImage();
             loadGamesFromStorage();
+            
+            // If shared game parameter exists, play it
+            if (sharedGameId) {
+                playSharedGame();
+            }
         });
     </script>
 </body>
