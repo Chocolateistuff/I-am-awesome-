@@ -169,7 +169,7 @@
                         <div id="game3LinkContainer" style="display: none; margin-top: 12px;">
                             <p style="font-size: 12px; color: #666; margin-bottom: 8px;">Share this link with friends:</p>
                             <div style="background: #f5f5f5; padding: 10px; border-radius: 10px; word-break: break-all; border: 2px solid #A855F7;">
-                                <span id="game3Link" style="color: #333; font-family: monospace; font-size: 11px;"></span>
+                                <span id="game3Link" style="color: #333; font-family: monospace; font-size: 14px; font-weight: bold;"></span>
                             </div>
                             <button onclick="copyToClipboard('game3Link')" style="margin-top: 8px; background: #A855F7; color: white; border: none; padding: 6px 12px; border-radius: 15px; cursor: pointer; font-size: 12px;">Copy Link</button>
                         </div>
@@ -285,8 +285,7 @@
 
         // Check if this is a shared game view
         const urlParams = new URLSearchParams(window.location.search);
-        const sharedGameId = urlParams.get('play');
-        const gameData = urlParams.get('data');
+        const gameId = urlParams.get('g');
 
         function loadDogImage() {
             const dogImg = document.getElementById('dogImage');
@@ -315,25 +314,25 @@
             }
         }
 
-        function handleGameUpload(event, gameId) {
+        function handleGameUpload(event, gameIdVar) {
             const file = event.target.files[0];
             if (file && (file.name.endsWith('.html') || file.name.endsWith('.htm'))) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     // Store in localStorage for persistence
-                    localStorage.setItem(gameId + '_data', e.target.result);
-                    localStorage.setItem(gameId + '_filename', file.name);
+                    localStorage.setItem(gameIdVar + '_data', e.target.result);
+                    localStorage.setItem(gameIdVar + '_filename', file.name);
                     
                     // Update games object
-                    games[gameId] = e.target.result;
+                    games[gameIdVar] = e.target.result;
                     
                     // Show share button if game3
-                    if (gameId === 'game3') {
+                    if (gameIdVar === 'game3') {
                         document.getElementById('game3ShareContainer').style.display = 'block';
                     }
                     
                     // Reset file input
-                    document.getElementById('gameFile' + gameId.replace('game', '')).value = '';
+                    document.getElementById('gameFile' + gameIdVar.replace('game', '')).value = '';
                 };
                 reader.readAsText(file);
             } else {
@@ -341,13 +340,13 @@
             }
         }
 
-        function playGame(gameId) {
-            if (games[gameId]) {
+        function playGame(gameIdVar) {
+            if (games[gameIdVar]) {
                 const gameModal = document.getElementById('gameModal');
                 const gameFrame = document.getElementById('gameFrame');
                 
                 // Create blob from stored data
-                const blob = new Blob([games[gameId]], { type: 'text/html' });
+                const blob = new Blob([games[gameIdVar]], { type: 'text/html' });
                 gameFrame.src = URL.createObjectURL(blob);
                 gameModal.style.display = 'flex';
             }
@@ -359,19 +358,19 @@
             document.getElementById('gameFrame').src = '';
         }
 
-        function toggleShareLink(gameId) {
-            if (!games[gameId]) {
+        function toggleShareLink(gameIdVar) {
+            if (!games[gameIdVar]) {
                 alert('Please upload a game first!');
                 return;
             }
             
-            const linkContainer = document.getElementById(gameId + 'LinkContainer');
-            const linkElement = document.getElementById(gameId + 'Link');
+            const linkContainer = document.getElementById(gameIdVar + 'LinkContainer');
+            const linkElement = document.getElementById(gameIdVar + 'Link');
             
             if (linkContainer.style.display === 'none') {
-                // Generate the link
-                const encodedData = btoa(games[gameId]);
-                const gameLink = window.location.origin + window.location.pathname + '?play=' + gameId + '&data=' + encodeURIComponent(encodedData);
+                // Generate SHORT link
+                const gameNumber = gameIdVar.replace('game', '');
+                const gameLink = window.location.origin + window.location.pathname + '?g=' + gameNumber;
                 
                 linkElement.textContent = gameLink;
                 linkContainer.style.display = 'block';
@@ -399,22 +398,8 @@
         }
 
         function playSharedGame() {
-            if (sharedGameId && gameData) {
-                try {
-                    // Decode the game data from base64
-                    const gameContent = atob(decodeURIComponent(gameData));
-                    
-                    const gameModal = document.getElementById('gameModal');
-                    const gameFrame = document.getElementById('gameFrame');
-                    
-                    // Create blob from game content
-                    const blob = new Blob([gameContent], { type: 'text/html' });
-                    gameFrame.src = URL.createObjectURL(blob);
-                    gameModal.style.display = 'flex';
-                } catch (e) {
-                    console.error('Error loading shared game:', e);
-                    alert('Error loading the game. Please try again.');
-                }
+            if (gameId && games['game' + gameId]) {
+                playGame('game' + gameId);
             }
         }
 
@@ -460,7 +445,7 @@
             loadGamesFromStorage();
             
             // If shared game parameter exists, play it
-            if (sharedGameId && gameData) {
+            if (gameId) {
                 playSharedGame();
             }
         });
