@@ -122,7 +122,7 @@
                 <div class="interest-card clickable-card">
                     <input type="file" id="gameFile3" accept=".html,.htm" style="display: none;" onchange="handleGameUpload(event, 'game3')">
                     <div class="game-box" id="game3" style="cursor: pointer; position: relative; overflow: hidden;">
-                        <img id="game3Image" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCADIAMgDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlbaWmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD5/KKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD/2Q==" alt="Air Hockey" style="width: 100%; height: 100%; object-fit: cover;">
+                        <img id="game3Image" src="https://images.istockphoto.com/id/490693691/photo/air-hockey.jpg?h=400&w=400&fit=crop" alt="Air Hockey" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                     <div style="text-align: center; margin-top: 10px; font-weight: 600; color: #A855F7;">Air Hockey: 2 Player Game</div>
                     <div id="game3ShareContainer" style="text-align: center; margin-top: 8px; display: none;">
@@ -221,12 +221,6 @@
         </div>
     </div>
 
-    <!-- Shared Game Player Page (hidden until needed) -->
-    <div id="sharedGamePlayer" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 3000;">
-        <button onclick="closeSharedGame()" style="position: fixed; top: 20px; left: 20px; padding: 10px 20px; background: #FF69B4; color: white; border: none; cursor: pointer; font-size: 16px; border-radius: 20px; z-index: 3001;">← Back</button>
-        <iframe id="sharedGameFrame" style="width: 100%; height: 100%; border: none;"></iframe>
-    </div>
-
     <!-- FOOTER -->
     <footer class="footer">
         <p>&copy; 2024 NutellaWaffle. Made with 💜 and creativity.</p>
@@ -246,6 +240,7 @@
         // Check if this is a shared game view
         const urlParams = new URLSearchParams(window.location.search);
         const sharedGameId = urlParams.get('play');
+        const gameData = urlParams.get('data');
 
         function loadDogImage() {
             const dogImg = document.getElementById('dogImage');
@@ -324,9 +319,12 @@
                 return;
             }
             
-            const gameLink = window.location.origin + window.location.pathname + '?play=' + gameId;
+            // Encode the game data in base64 for URL
+            const encodedData = btoa(games[gameId]);
+            const gameLink = window.location.origin + window.location.pathname + '?play=' + gameId + '&data=' + encodeURIComponent(encodedData);
+            
             navigator.clipboard.writeText(gameLink).then(function() {
-                alert('Share link copied! 📋 Send this link to friends to play together!');
+                alert('Share link copied! 📋 Send this link to friends to play together! They can play without downloading anything!');
             }).catch(function(err) {
                 // Fallback for older browsers
                 const textarea = document.createElement('textarea');
@@ -335,48 +333,28 @@
                 textarea.select();
                 document.execCommand('copy');
                 document.body.removeChild(textarea);
-                alert('Share link copied! 📋 Send this link to friends to play together!');
+                alert('Share link copied! 📋 Send this link to friends to play together! They can play without downloading anything!');
             });
         }
 
         function playSharedGame() {
-            if (sharedGameId && games[sharedGameId]) {
-                const sharedPlayer = document.getElementById('sharedGamePlayer');
-                const sharedFrame = document.getElementById('sharedGameFrame');
-                
-                // Create blob from stored data
-                const blob = new Blob([games[sharedGameId]], { type: 'text/html' });
-                sharedFrame.src = URL.createObjectURL(blob);
-                sharedPlayer.style.display = 'block';
-                
-                // Hide main content
-                document.querySelector('nav').style.display = 'none';
-                document.querySelector('.hero').style.display = 'none';
-                document.getElementById('about').style.display = 'none';
-                document.getElementById('interests').style.display = 'none';
-                document.getElementById('games').style.display = 'none';
-                document.getElementById('projects').style.display = 'none';
-                document.getElementById('journal').style.display = 'none';
-                document.getElementById('contact').style.display = 'none';
-                document.querySelector('footer').style.display = 'none';
+            if (sharedGameId && gameData) {
+                try {
+                    // Decode the game data from base64
+                    const gameContent = atob(decodeURIComponent(gameData));
+                    
+                    const gameModal = document.getElementById('gameModal');
+                    const gameFrame = document.getElementById('gameFrame');
+                    
+                    // Create blob from game content
+                    const blob = new Blob([gameContent], { type: 'text/html' });
+                    gameFrame.src = URL.createObjectURL(blob);
+                    gameModal.style.display = 'flex';
+                } catch (e) {
+                    console.error('Error loading shared game:', e);
+                    alert('Error loading the game. Please try again.');
+                }
             }
-        }
-
-        function closeSharedGame() {
-            const sharedPlayer = document.getElementById('sharedGamePlayer');
-            sharedPlayer.style.display = 'none';
-            document.getElementById('sharedGameFrame').src = '';
-            
-            // Show main content again
-            document.querySelector('nav').style.display = 'block';
-            document.querySelector('.hero').style.display = 'block';
-            document.getElementById('about').style.display = 'block';
-            document.getElementById('interests').style.display = 'block';
-            document.getElementById('games').style.display = 'block';
-            document.getElementById('projects').style.display = 'block';
-            document.getElementById('journal').style.display = 'block';
-            document.getElementById('contact').style.display = 'block';
-            document.querySelector('footer').style.display = 'block';
         }
 
         // Add click handlers for game boxes
@@ -421,7 +399,7 @@
             loadGamesFromStorage();
             
             // If shared game parameter exists, play it
-            if (sharedGameId) {
+            if (sharedGameId && gameData) {
                 playSharedGame();
             }
         });
