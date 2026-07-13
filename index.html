@@ -122,11 +122,57 @@
                 <div class="interest-card clickable-card">
                     <input type="file" id="gameFile3" accept=".html,.htm" style="display: none;" onchange="handleGameUpload(event, 'game3')">
                     <div class="game-box" id="game3" style="cursor: pointer; position: relative; overflow: hidden;">
-                        <img id="game3Image" src="https://images.istockphoto.com/id/490693691/photo/air-hockey.jpg?h=400&w=400&fit=crop" alt="Air Hockey" style="width: 100%; height: 100%; object-fit: cover;">
+                        <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;">
+                            <!-- Background gradient -->
+                            <defs>
+                                <linearGradient id="airHockeyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#1a1a3e;stop-opacity:1" />
+                                    <stop offset="50%" style="stop-color:#0a0a2e;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#16213e;stop-opacity:1" />
+                                </linearGradient>
+                                <filter id="glow">
+                                    <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                                    <feMerge>
+                                        <feMergeNode in="coloredBlur"/>
+                                        <feMergeNode in="SourceGraphic"/>
+                                    </feMerge>
+                                </filter>
+                            </defs>
+                            <rect width="400" height="300" fill="url(#airHockeyGrad)"/>
+                            
+                            <!-- Table surface -->
+                            <rect x="20" y="40" width="360" height="220" rx="10" fill="#4a90e2" opacity="0.3" stroke="#00ffff" stroke-width="2"/>
+                            
+                            <!-- Center line -->
+                            <line x1="200" y1="50" x2="200" y2="250" stroke="#00ffff" stroke-width="1" stroke-dasharray="5,5" opacity="0.5"/>
+                            
+                            <!-- Left paddle -->
+                            <ellipse cx="50" cy="150" rx="12" ry="35" fill="#ff1493" filter="url(#glow)" opacity="0.9"/>
+                            
+                            <!-- Right paddle -->
+                            <ellipse cx="350" cy="150" rx="12" ry="35" fill="#ff1493" filter="url(#glow)" opacity="0.9"/>
+                            
+                            <!-- Puck (center) -->
+                            <circle cx="200" cy="120" r="8" fill="#ff1493" filter="url(#glow)" opacity="0.95"/>
+                            
+                            <!-- Glow effects -->
+                            <circle cx="200" cy="120" r="15" fill="none" stroke="#ff1493" stroke-width="1" opacity="0.3"/>
+                            
+                            <!-- Goal areas -->
+                            <rect x="20" y="100" width="20" height="100" fill="#00ffff" opacity="0.1" stroke="#00ffff" stroke-width="1"/>
+                            <rect x="360" y="100" width="20" height="100" fill="#00ffff" opacity="0.1" stroke="#00ffff" stroke-width="1"/>
+                        </svg>
                     </div>
                     <div style="text-align: center; margin-top: 10px; font-weight: 600; color: #A855F7;">Air Hockey: 2 Player Game</div>
                     <div id="game3ShareContainer" style="text-align: center; margin-top: 8px; display: none;">
-                        <button onclick="copyGameLink('game3')" style="background: linear-gradient(135deg, #A855F7 0%, #EC4899 100%); color: white; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; font-size: 14px; font-weight: 600;">📋 Copy Share Link</button>
+                        <button onclick="toggleShareLink('game3')" style="background: linear-gradient(135deg, #A855F7 0%, #EC4899 100%); color: white; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; font-size: 14px; font-weight: 600;">📋 Generate Share Link</button>
+                        <div id="game3LinkContainer" style="display: none; margin-top: 12px;">
+                            <p style="font-size: 12px; color: #666; margin-bottom: 8px;">Share this link with friends:</p>
+                            <div style="background: #f5f5f5; padding: 10px; border-radius: 10px; word-break: break-all; border: 2px solid #A855F7;">
+                                <span id="game3Link" style="color: #333; font-family: monospace; font-size: 11px;"></span>
+                            </div>
+                            <button onclick="copyToClipboard('game3Link')" style="margin-top: 8px; background: #A855F7; color: white; border: none; padding: 6px 12px; border-radius: 15px; cursor: pointer; font-size: 12px;">Copy Link</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -313,27 +359,42 @@
             document.getElementById('gameFrame').src = '';
         }
 
-        function copyGameLink(gameId) {
+        function toggleShareLink(gameId) {
             if (!games[gameId]) {
                 alert('Please upload a game first!');
                 return;
             }
             
-            // Encode the game data in base64 for URL
-            const encodedData = btoa(games[gameId]);
-            const gameLink = window.location.origin + window.location.pathname + '?play=' + gameId + '&data=' + encodeURIComponent(encodedData);
+            const linkContainer = document.getElementById(gameId + 'LinkContainer');
+            const linkElement = document.getElementById(gameId + 'Link');
             
-            navigator.clipboard.writeText(gameLink).then(function() {
-                alert('Share link copied! 📋 Send this link to friends to play together! They can play without downloading anything!');
+            if (linkContainer.style.display === 'none') {
+                // Generate the link
+                const encodedData = btoa(games[gameId]);
+                const gameLink = window.location.origin + window.location.pathname + '?play=' + gameId + '&data=' + encodeURIComponent(encodedData);
+                
+                linkElement.textContent = gameLink;
+                linkContainer.style.display = 'block';
+            } else {
+                linkContainer.style.display = 'none';
+            }
+        }
+
+        function copyToClipboard(elementId) {
+            const element = document.getElementById(elementId);
+            const text = element.textContent;
+            
+            navigator.clipboard.writeText(text).then(function() {
+                alert('Link copied to clipboard! 📋 You can now send it to your friends!');
             }).catch(function(err) {
                 // Fallback for older browsers
                 const textarea = document.createElement('textarea');
-                textarea.value = gameLink;
+                textarea.value = text;
                 document.body.appendChild(textarea);
                 textarea.select();
                 document.execCommand('copy');
                 document.body.removeChild(textarea);
-                alert('Share link copied! 📋 Send this link to friends to play together! They can play without downloading anything!');
+                alert('Link copied to clipboard! 📋 You can now send it to your friends!');
             });
         }
 
