@@ -6,17 +6,17 @@
     <title>NutellaWaffle - Creative & Curious</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        * {
-            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="8" fill="%23A855F7"/><circle cx="16" cy="16" r="6" fill="%23E879F9"/></svg>') 16 16, auto;
+        body {
+            background: linear-gradient(135deg, #f5e6ff 0%, #ffe6f2 100%);
         }
 
         body.dark-mode {
-            background: #0f0f0f !important;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             color: #e0e0e0;
         }
 
         body.dark-mode .section {
-            background: rgba(20, 20, 30, 0.8);
+            background: rgba(20, 20, 35, 0.9);
         }
 
         body.dark-mode .section-title {
@@ -37,7 +37,6 @@
             border: none;
             padding: 12px 20px;
             border-radius: 50px;
-            cursor: pointer;
             font-size: 18px;
             box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
             transition: all 0.3s ease;
@@ -86,12 +85,16 @@
         }
 
         .fun-fact-card {
-            background: linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.15) 0%, rgba(236, 72, 153, 0.15) 100%);
             border: 2px solid #A855F7;
             border-radius: 15px;
             padding: 20px;
             text-align: center;
             transition: all 0.3s ease;
+        }
+
+        body.dark-mode .fun-fact-card {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.2) 0%, rgba(236, 72, 153, 0.2) 100%);
         }
 
         .fun-fact-card:hover {
@@ -117,7 +120,7 @@
 
         .books-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
             gap: 15px;
             margin-top: 20px;
         }
@@ -130,6 +133,10 @@
             color: white;
             box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
             transition: all 0.3s ease;
+        }
+
+        body.dark-mode .book-card {
+            background: linear-gradient(135deg, #7c3aed 0%, #be185d 100%);
         }
 
         .book-card:hover {
@@ -148,33 +155,6 @@
             opacity: 0.9;
         }
 
-        .game-submission {
-            background: rgba(168, 85, 247, 0.1);
-            border: 2px dashed #A855F7;
-            border-radius: 15px;
-            padding: 25px;
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .submit-game-btn {
-            background: linear-gradient(135deg, #A855F7 0%, #EC4899 100%);
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            margin-top: 15px;
-        }
-
-        .submit-game-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(168, 85, 247, 0.4);
-        }
-
         @media (max-width: 768px) {
             #theme-toggle {
                 top: 10px;
@@ -188,7 +168,7 @@
             }
 
             .books-grid {
-                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
             }
         }
     </style>
@@ -237,7 +217,7 @@
                     <p><strong>📚 Next goals:</strong> Learn and solve increasingly challenging math problems and master harder pieces on violin and piano</p>
                 </div>
                 <div class="about-image" style="background: linear-gradient(135deg, rgba(255, 212, 229, 0.3) 0%, rgba(224, 187, 228, 0.3) 100%); padding: 15px; border-radius: 25px; position: relative;">
-                    <img id="dogImage" src="" alt="Cute dog in flowers" style="width: 100%; height: auto; border-radius: 20px; box-shadow: 0 8px 20px rgba(255, 215, 0, 0.2);">
+                    <img id="dogImage" src="https://images.unsplash.com/photo-1633722715463-d30628cad4ae?w=800&h=800&fit=crop&q=90" alt="Cute dog in flowers" style="width: 100%; height: auto; border-radius: 20px; box-shadow: 0 8px 20px rgba(255, 215, 0, 0.2);">
                     <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 48px; pointer-events: none;">❤️</div>
                 </div>
             </div>
@@ -379,13 +359,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Game Submission Section -->
-            <div class="game-submission">
-                <h3 style="color: #A855F7; margin-top: 0;">Have a game to share? 🎯</h3>
-                <p>Know an awesome game? Help me add more fun to this page!</p>
-                <button class="submit-game-btn" onclick="submitGameIdea()">💡 Suggest a Game</button>
-            </div>
         </div>
     </section>
 
@@ -435,28 +408,24 @@
             <p style="text-align: center; margin-bottom: 20px;">Some of my favorite reads from the past year!</p>
             <div class="books-grid">
                 <div class="book-card">
-                    <div class="book-title">The Song of Achilles</div>
-                    <div class="book-author">Madeline Miller</div>
+                    <div class="book-title">Percy Jackson Series</div>
+                    <div class="book-author">Rick Riordan</div>
                 </div>
                 <div class="book-card">
-                    <div class="book-title">Six of Crows</div>
-                    <div class="book-author">Leigh Bardugo</div>
+                    <div class="book-title">Heroes of Olympus Series</div>
+                    <div class="book-author">Rick Riordan</div>
                 </div>
                 <div class="book-card">
-                    <div class="book-title">Children of Blood and Bone</div>
-                    <div class="book-author">Tomi Adeyemi</div>
+                    <div class="book-title">Trials of Apollo Series</div>
+                    <div class="book-author">Rick Riordan</div>
                 </div>
                 <div class="book-card">
-                    <div class="book-title">A Deadly Education</div>
-                    <div class="book-author">Naomi Novik</div>
+                    <div class="book-title">Red Queen Series</div>
+                    <div class="book-author">Victoria Aveyard</div>
                 </div>
                 <div class="book-card">
-                    <div class="book-title">The Cruel Prince</div>
-                    <div class="book-author">Holly Black</div>
-                </div>
-                <div class="book-card">
-                    <div class="book-title">Legendborn</div>
-                    <div class="book-author">Tracy Deon</div>
+                    <div class="book-title">The Inheritance Games (Book 1-2)</div>
+                    <div class="book-author">Jennifer Lynn Barnes</div>
                 </div>
             </div>
         </div>
@@ -566,15 +535,6 @@
         document.querySelectorAll('.fade-in').forEach(el => {
             observer.observe(el);
         });
-
-        // Game submission
-        function submitGameIdea() {
-            const idea = prompt('What game idea do you have? (Share a description or link!)');
-            if (idea) {
-                alert('Thanks for your idea! 🎉 I\'ll check it out!');
-                // In a real scenario, this would send the data to a server
-            }
-        }
 
         // Store game files with localStorage for persistence
         const games = {
