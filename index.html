@@ -7,11 +7,11 @@
     <link rel="stylesheet" href="style.css">
     <style>
         body {
-            background: linear-gradient(135deg, #f5e6ff 0%, #ffe6f2 100%);
+            background: linear-gradient(135deg, #ffe6f2 0%, #e6f0ff 50%, #f0e6ff 100%);
         }
 
         body.dark-mode {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            background: linear-gradient(135deg, #2d1b3d 0%, #1b2d3d 50%, #2d1b3d 100%);
             color: #e0e0e0;
         }
 
@@ -85,8 +85,8 @@
         }
 
         .fun-fact-card {
-            background: linear-gradient(135deg, rgba(168, 85, 247, 0.15) 0%, rgba(236, 72, 153, 0.15) 100%);
-            border: 2px solid #A855F7;
+            background: rgba(168, 85, 247, 0.08);
+            border: 2px solid rgba(168, 85, 247, 0.3);
             border-radius: 15px;
             padding: 20px;
             text-align: center;
@@ -94,13 +94,14 @@
         }
 
         body.dark-mode .fun-fact-card {
-            background: linear-gradient(135deg, rgba(168, 85, 247, 0.2) 0%, rgba(236, 72, 153, 0.2) 100%);
+            background: rgba(168, 85, 247, 0.12);
+            border: 2px solid rgba(168, 85, 247, 0.25);
         }
 
         .fun-fact-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(168, 85, 247, 0.3);
-            border-color: #EC4899;
+            box-shadow: 0 8px 20px rgba(168, 85, 247, 0.2);
+            border-color: rgba(168, 85, 247, 0.5);
         }
 
         .fun-fact-emoji {
@@ -126,33 +127,42 @@
         }
 
         .book-card {
-            background: linear-gradient(135deg, #A855F7 0%, #EC4899 100%);
+            background: rgba(168, 85, 247, 0.12);
+            border: 2px solid rgba(168, 85, 247, 0.25);
             border-radius: 10px;
             padding: 15px;
             text-align: center;
-            color: white;
-            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
+            color: #333;
+            box-shadow: 0 4px 12px rgba(168, 85, 247, 0.1);
             transition: all 0.3s ease;
         }
 
         body.dark-mode .book-card {
-            background: linear-gradient(135deg, #7c3aed 0%, #be185d 100%);
+            background: rgba(168, 85, 247, 0.15);
+            border: 2px solid rgba(168, 85, 247, 0.2);
+            color: #e0e0e0;
         }
 
         .book-card:hover {
             transform: scale(1.05);
-            box-shadow: 0 8px 20px rgba(168, 85, 247, 0.5);
+            box-shadow: 0 8px 18px rgba(168, 85, 247, 0.2);
+            border-color: rgba(168, 85, 247, 0.4);
         }
 
         .book-title {
             font-weight: 600;
             font-size: 14px;
             margin-bottom: 8px;
+            color: #A855F7;
+        }
+
+        body.dark-mode .book-title {
+            color: #d8b4ff;
         }
 
         .book-author {
             font-size: 12px;
-            opacity: 0.9;
+            opacity: 0.8;
         }
 
         @media (max-width: 768px) {
@@ -426,6 +436,14 @@
                 <div class="book-card">
                     <div class="book-title">The Inheritance Games (Book 1-2)</div>
                     <div class="book-author">Jennifer Lynn Barnes</div>
+                </div>
+                <div class="book-card">
+                    <div class="book-title">Harry Potter Series</div>
+                    <div class="book-author">J.K. Rowling (Reread)</div>
+                </div>
+                <div class="book-card">
+                    <div class="book-title">The Hunger Games Series</div>
+                    <div class="book-author">Suzanne Collins</div>
                 </div>
             </div>
         </div>
