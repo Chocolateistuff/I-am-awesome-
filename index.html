@@ -5,8 +5,198 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NutellaWaffle - Creative & Curious</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="8" fill="%23A855F7"/><circle cx="16" cy="16" r="6" fill="%23E879F9"/></svg>') 16 16, auto;
+        }
+
+        body.dark-mode {
+            background: #0f0f0f !important;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .section {
+            background: rgba(20, 20, 30, 0.8);
+        }
+
+        body.dark-mode .section-title {
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .navbar {
+            background: rgba(15, 15, 25, 0.95);
+        }
+
+        #theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: linear-gradient(135deg, #A855F7 0%, #EC4899 100%);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 18px;
+            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        #theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(168, 85, 247, 0.6);
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(168, 85, 247, 0.3);
+            border-radius: 50%;
+            border-top-color: #A855F7;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .fun-facts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .fun-fact-card {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+            border: 2px solid #A855F7;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .fun-fact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(168, 85, 247, 0.3);
+            border-color: #EC4899;
+        }
+
+        .fun-fact-emoji {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .fun-fact-text {
+            font-size: 16px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        body.dark-mode .fun-fact-text {
+            color: #e0e0e0;
+        }
+
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .book-card {
+            background: linear-gradient(135deg, #A855F7 0%, #EC4899 100%);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .book-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(168, 85, 247, 0.5);
+        }
+
+        .book-title {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .book-author {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .game-submission {
+            background: rgba(168, 85, 247, 0.1);
+            border: 2px dashed #A855F7;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .submit-game-btn {
+            background: linear-gradient(135deg, #A855F7 0%, #EC4899 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .submit-game-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(168, 85, 247, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            #theme-toggle {
+                top: 10px;
+                right: 10px;
+                padding: 10px 15px;
+                font-size: 16px;
+            }
+
+            .fun-facts-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+
+            .books-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Theme Toggle Button -->
+    <button id="theme-toggle" onclick="toggleTheme()">🌙</button>
+
     <!-- Navigation Bar -->
     <nav class="navbar">
         <div class="nav-container">
@@ -14,9 +204,11 @@
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
+                <li><a href="#fun-facts">Fun Facts</a></li>
                 <li><a href="#interests">Interests</a></li>
                 <li><a href="#games">Games</a></li>
                 <li><a href="#projects">Projects</a></li>
+                <li><a href="#books">Books</a></li>
                 <li><a href="#journal">Journal</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
@@ -34,7 +226,7 @@
     </section>
 
     <!-- ABOUT ME SECTION -->
-    <section id="about" class="section">
+    <section id="about" class="section fade-in">
         <div class="container">
             <h2 class="section-title">About Me 💫 💐</h2>
             <div class="about-content">
@@ -52,8 +244,33 @@
         </div>
     </section>
 
+    <!-- FUN FACTS SECTION -->
+    <section id="fun-facts" class="section alternate fade-in">
+        <div class="container">
+            <h2 class="section-title">Fun Facts About Me! 🎉</h2>
+            <div class="fun-facts-grid">
+                <div class="fun-fact-card">
+                    <div class="fun-fact-emoji">🐕</div>
+                    <div class="fun-fact-text">My favorite animals are dogs!</div>
+                </div>
+                <div class="fun-fact-card">
+                    <div class="fun-fact-emoji">💜</div>
+                    <div class="fun-fact-text">I love purple (especially lavender) & light pink!</div>
+                </div>
+                <div class="fun-fact-card">
+                    <div class="fun-fact-emoji">📚</div>
+                    <div class="fun-fact-text">My top 2 hobbies are reading & art + crafts!</div>
+                </div>
+                <div class="fun-fact-card">
+                    <div class="fun-fact-emoji">🥭</div>
+                    <div class="fun-fact-text">My favorite fruit is mangos!</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- INTERESTS SECTION -->
-    <section id="interests" class="section alternate">
+    <section id="interests" class="section fade-in">
         <div class="container">
             <h2 class="section-title">My Interests 🌈</h2>
             <div class="interests-grid">
@@ -102,7 +319,7 @@
     </section>
 
     <!-- GAMES SECTION -->
-    <section id="games" class="section">
+    <section id="games" class="section fade-in">
         <div class="container">
             <h2 class="section-title">Games 🎮</h2>
             <div class="interests-grid">
@@ -124,7 +341,6 @@
                     <input type="file" id="gameFile3" accept=".html,.htm" style="display: none;" onchange="handleGameUpload(event, 'game3')">
                     <div class="game-box" id="game3" style="cursor: pointer; position: relative; overflow: hidden;">
                         <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;">
-                            <!-- Background gradient -->
                             <defs>
                                 <linearGradient id="airHockeyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                                     <stop offset="0%" style="stop-color:#1a1a3e;stop-opacity:1" />
@@ -140,26 +356,12 @@
                                 </filter>
                             </defs>
                             <rect width="400" height="300" fill="url(#airHockeyGrad)"/>
-                            
-                            <!-- Table surface -->
                             <rect x="20" y="40" width="360" height="220" rx="10" fill="#4a90e2" opacity="0.3" stroke="#00ffff" stroke-width="2"/>
-                            
-                            <!-- Center line -->
                             <line x1="200" y1="50" x2="200" y2="250" stroke="#00ffff" stroke-width="1" stroke-dasharray="5,5" opacity="0.5"/>
-                            
-                            <!-- Left paddle -->
                             <ellipse cx="50" cy="150" rx="12" ry="35" fill="#ff1493" filter="url(#glow)" opacity="0.9"/>
-                            
-                            <!-- Right paddle -->
                             <ellipse cx="350" cy="150" rx="12" ry="35" fill="#ff1493" filter="url(#glow)" opacity="0.9"/>
-                            
-                            <!-- Puck (center) -->
                             <circle cx="200" cy="120" r="8" fill="#ff1493" filter="url(#glow)" opacity="0.95"/>
-                            
-                            <!-- Glow effects -->
                             <circle cx="200" cy="120" r="15" fill="none" stroke="#ff1493" stroke-width="1" opacity="0.3"/>
-                            
-                            <!-- Goal areas -->
                             <rect x="20" y="100" width="20" height="100" fill="#00ffff" opacity="0.1" stroke="#00ffff" stroke-width="1"/>
                             <rect x="360" y="100" width="20" height="100" fill="#00ffff" opacity="0.1" stroke="#00ffff" stroke-width="1"/>
                         </svg>
@@ -177,11 +379,18 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Game Submission Section -->
+            <div class="game-submission">
+                <h3 style="color: #A855F7; margin-top: 0;">Have a game to share? 🎯</h3>
+                <p>Know an awesome game? Help me add more fun to this page!</p>
+                <button class="submit-game-btn" onclick="submitGameIdea()">💡 Suggest a Game</button>
+            </div>
         </div>
     </section>
 
     <!-- PROJECTS SECTION -->
-    <section id="projects" class="section">
+    <section id="projects" class="section fade-in">
         <div class="container">
             <h2 class="section-title">My Projects & Activities 🚀</h2>
             <div class="projects-grid">
@@ -219,8 +428,42 @@
         </div>
     </section>
 
+    <!-- BOOKS SECTION -->
+    <section id="books" class="section alternate fade-in">
+        <div class="container">
+            <h2 class="section-title">Books I've Read This Year 📚</h2>
+            <p style="text-align: center; margin-bottom: 20px;">Some of my favorite reads from the past year!</p>
+            <div class="books-grid">
+                <div class="book-card">
+                    <div class="book-title">The Song of Achilles</div>
+                    <div class="book-author">Madeline Miller</div>
+                </div>
+                <div class="book-card">
+                    <div class="book-title">Six of Crows</div>
+                    <div class="book-author">Leigh Bardugo</div>
+                </div>
+                <div class="book-card">
+                    <div class="book-title">Children of Blood and Bone</div>
+                    <div class="book-author">Tomi Adeyemi</div>
+                </div>
+                <div class="book-card">
+                    <div class="book-title">A Deadly Education</div>
+                    <div class="book-author">Naomi Novik</div>
+                </div>
+                <div class="book-card">
+                    <div class="book-title">The Cruel Prince</div>
+                    <div class="book-author">Holly Black</div>
+                </div>
+                <div class="book-card">
+                    <div class="book-title">Legendborn</div>
+                    <div class="book-author">Tracy Deon</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- LEARNING JOURNAL SECTION -->
-    <section id="journal" class="section alternate">
+    <section id="journal" class="section fade-in">
         <div class="container">
             <h2 class="section-title">My Learning Journal 📝</h2>
             <div class="journal-entries">
@@ -244,7 +487,7 @@
     </section>
 
     <!-- CONTACT SECTION -->
-    <section id="contact" class="section contact-section">
+    <section id="contact" class="section contact-section fade-in">
         <div class="container">
             <h2 class="section-title">Let's Connect! 💌</h2>
             <div class="contact-content">
@@ -264,7 +507,10 @@
     <div id="gameModal" class="game-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center;">
         <div class="game-modal-content" style="width: 95%; height: 95%; background: white; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column;">
             <button class="game-close" onclick="closeGameModal()" style="padding: 10px 20px; background: #FF69B4; color: white; border: none; cursor: pointer; font-size: 18px; align-self: flex-start; border-radius: 0 0 10px 0;">← Back</button>
-            <iframe id="gameFrame" style="width: 100%; height: 100%; border: none; display: block; flex: 1;" sandbox="allow-same-origin allow-scripts allow-forms allow-pointer-lock"></iframe>
+            <div style="flex: 1; display: flex; align-items: center; justify-content: center; background: #f5f5f5;">
+                <div class="loading-spinner"></div>
+            </div>
+            <iframe id="gameFrame" style="width: 100%; height: 100%; border: none; display: none; flex: 1;" sandbox="allow-same-origin allow-scripts allow-forms allow-pointer-lock"></iframe>
         </div>
     </div>
 
@@ -277,6 +523,59 @@
     <!-- Link to JavaScript file -->
     <script src="script.js"></script>
     <script>
+        // Theme Toggle
+        function toggleTheme() {
+            const body = document.body;
+            const button = document.getElementById('theme-toggle');
+            
+            if (body.classList.contains('dark-mode')) {
+                body.classList.remove('dark-mode');
+                button.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.classList.add('dark-mode');
+                button.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Load saved theme
+        window.addEventListener('load', function() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+                document.getElementById('theme-toggle').textContent = '☀️';
+            }
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationDelay = '0s';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Game submission
+        function submitGameIdea() {
+            const idea = prompt('What game idea do you have? (Share a description or link!)');
+            if (idea) {
+                alert('Thanks for your idea! 🎉 I\'ll check it out!');
+                // In a real scenario, this would send the data to a server
+            }
+        }
+
         // Store game files with localStorage for persistence
         const games = {
             game1: null,
@@ -297,17 +596,14 @@
         }
 
         function loadGamesFromStorage() {
-            // Load game1
             const game1Data = localStorage.getItem('game1_data');
             if (game1Data) {
                 games.game1 = game1Data;
             }
-            // Load game2
             const game2Data = localStorage.getItem('game2_data');
             if (game2Data) {
                 games.game2 = game2Data;
             }
-            // Load game3
             const game3Data = localStorage.getItem('game3_data');
             if (game3Data) {
                 games.game3 = game3Data;
@@ -320,19 +616,14 @@
             if (file && (file.name.endsWith('.html') || file.name.endsWith('.htm'))) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    // Store in localStorage for persistence
                     localStorage.setItem(gameIdVar + '_data', e.target.result);
                     localStorage.setItem(gameIdVar + '_filename', file.name);
-                    
-                    // Update games object
                     games[gameIdVar] = e.target.result;
                     
-                    // Show share button if game3
                     if (gameIdVar === 'game3') {
                         document.getElementById('game3ShareContainer').style.display = 'block';
                     }
                     
-                    // Reset file input
                     document.getElementById('gameFile' + gameIdVar.replace('game', '')).value = '';
                 };
                 reader.readAsText(file);
@@ -345,11 +636,21 @@
             if (games[gameIdVar]) {
                 const gameModal = document.getElementById('gameModal');
                 const gameFrame = document.getElementById('gameFrame');
+                const spinner = gameModal.querySelector('.loading-spinner');
                 
-                // Create blob from stored data
-                const blob = new Blob([games[gameIdVar]], { type: 'text/html' });
-                gameFrame.src = URL.createObjectURL(blob);
                 gameModal.style.display = 'flex';
+                spinner.style.display = 'block';
+                gameFrame.style.display = 'none';
+                
+                setTimeout(() => {
+                    const blob = new Blob([games[gameIdVar]], { type: 'text/html' });
+                    gameFrame.src = URL.createObjectURL(blob);
+                    
+                    gameFrame.onload = () => {
+                        spinner.style.display = 'none';
+                        gameFrame.style.display = 'block';
+                    };
+                }, 300);
             }
         }
 
@@ -369,7 +670,6 @@
             const linkElement = document.getElementById(gameIdVar + 'Link');
             
             if (linkContainer.style.display === 'none') {
-                // Generate SHORT link
                 const gameNumber = gameIdVar.replace('game', '');
                 const gameLink = window.location.origin + window.location.pathname + '?g=' + gameNumber;
                 
@@ -387,7 +687,6 @@
             navigator.clipboard.writeText(text).then(function() {
                 alert('Link copied to clipboard! 📋 You can now send it to your friends!');
             }).catch(function(err) {
-                // Fallback for older browsers
                 const textarea = document.createElement('textarea');
                 textarea.value = text;
                 document.body.appendChild(textarea);
@@ -445,7 +744,6 @@
             loadDogImage();
             loadGamesFromStorage();
             
-            // If shared game parameter exists, play it
             if (gameId) {
                 playSharedGame();
             }
