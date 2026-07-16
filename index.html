@@ -313,23 +313,28 @@
         <div class="container">
             <h2 class="section-title">Games 🎮</h2>
             <div class="interests-grid">
-                <div class="interest-card clickable-card">
-                    <input type="file" id="gameFile1" accept=".html,.htm" style="display: none;" onchange="handleGameUpload(event, 'game1')">
-                    <div class="game-box" id="game1" style="cursor: pointer; position: relative; overflow: hidden;">
-                        <img id="game1Image" src="https://images.shutterstock.com/shutterstock/photos/2671821377/display_1500/stock-photo-air-hockey-game-table-with-red-pucks-and-paddles-in-neon-lighting-2671821377.jpg?w=400&h=300&fit=crop" alt="Midnight Food Crisis" style="width: 100%; height: 100%; object-fit: cover;">
+                <div class="interest-card clickable-card" onclick="playGameUrl('Fridge Phantoms.html')" style="cursor: pointer;">
+                    <div class="game-box" id="game1" style="cursor: pointer; position: relative; overflow: hidden; height: 180px; background: linear-gradient(135deg, #1a1a3e, #3a1a5e); display: flex; align-items: center; justify-content: center; border-radius: 12px;">
+                        <div style="text-align: center; color: white;">
+                            <div style="font-size: 48px;">🌙</div>
+                            <div style="font-size: 14px; margin-top: 8px; opacity: 0.8;">Click to Play</div>
+                        </div>
                     </div>
                     <div style="text-align: center; margin-top: 10px; font-weight: 600; color: #A855F7;">Midnight Food Crisis</div>
+                    <div style="text-align: center; margin-top: 6px;"><button onclick="event.stopPropagation(); playGameUrl('Fridge Phantoms.html')" style="background: linear-gradient(135deg, #A855F7 0%, #EC4899 100%); color: white; border: none; padding: 8px 20px; border-radius: 20px; cursor: pointer; font-size: 14px; font-weight: 600;">▶ Play</button></div>
                 </div>
-                <div class="interest-card clickable-card">
-                    <input type="file" id="gameFile2" accept=".html,.htm" style="display: none;" onchange="handleGameUpload(event, 'game2')">
-                    <div class="game-box" id="game2" style="cursor: pointer; position: relative; overflow: hidden;">
-                        <img id="game2Image" src="https://images.shutterstock.com/shutterstock/photos/2660861031/display_1500/stock-photo-happy-golden-retriever-holding-large-bone-treat-2660861031.jpg?w=400&h=300&fit=crop" alt="Puppy Paradise" style="width: 100%; height: 100%; object-fit: cover;">
+                <div class="interest-card clickable-card" onclick="playGameUrl('Puppy game.html')" style="cursor: pointer;">
+                    <div class="game-box" id="game2" style="cursor: pointer; position: relative; overflow: hidden; height: 180px; background: linear-gradient(135deg, #f0a500, #f06000); display: flex; align-items: center; justify-content: center; border-radius: 12px;">
+                        <div style="text-align: center; color: white;">
+                            <div style="font-size: 48px;">🐶</div>
+                            <div style="font-size: 14px; margin-top: 8px; opacity: 0.8;">Click to Play</div>
+                        </div>
                     </div>
                     <div style="text-align: center; margin-top: 10px; font-weight: 600; color: #A855F7;">Puppy Paradise</div>
+                    <div style="text-align: center; margin-top: 6px;"><button onclick="event.stopPropagation(); playGameUrl('Puppy game.html')" style="background: linear-gradient(135deg, #A855F7 0%, #EC4899 100%); color: white; border: none; padding: 8px 20px; border-radius: 20px; cursor: pointer; font-size: 14px; font-weight: 600;">▶ Play</button></div>
                 </div>
-                <div class="interest-card clickable-card">
-                    <input type="file" id="gameFile3" accept=".html,.htm" style="display: none;" onchange="handleGameUpload(event, 'game3')">
-                    <div class="game-box" id="game3" style="cursor: pointer; position: relative; overflow: hidden;">
+                <div class="interest-card clickable-card" onclick="playGameUrl('Air hockey.html')" style="cursor: pointer;">
+                    <div class="game-box" id="game3" style="cursor: pointer; position: relative; overflow: hidden; height: 180px; background: linear-gradient(135deg, #1a1a3e, #0a0a2e); display: flex; align-items: center; justify-content: center; border-radius: 12px;">
                         <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;">
                             <defs>
                                 <linearGradient id="airHockeyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -357,16 +362,7 @@
                         </svg>
                     </div>
                     <div style="text-align: center; margin-top: 10px; font-weight: 600; color: #A855F7;">Air Hockey: 2 Player Game</div>
-                    <div id="game3ShareContainer" style="text-align: center; margin-top: 8px; display: none;">
-                        <button onclick="toggleShareLink('game3')" style="background: linear-gradient(135deg, #A855F7 0%, #EC4899 100%); color: white; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; font-size: 14px; font-weight: 600;">📋 Generate Share Link</button>
-                        <div id="game3LinkContainer" style="display: none; margin-top: 12px;">
-                            <p style="font-size: 12px; color: #666; margin-bottom: 8px;">Share this link with friends:</p>
-                            <div style="background: #f5f5f5; padding: 10px; border-radius: 10px; word-break: break-all; border: 2px solid #A855F7;">
-                                <span id="game3Link" style="color: #333; font-family: monospace; font-size: 14px; font-weight: bold;"></span>
-                            </div>
-                            <button onclick="copyToClipboard('game3Link')" style="margin-top: 8px; background: #A855F7; color: white; border: none; padding: 6px 12px; border-radius: 15px; cursor: pointer; font-size: 12px;">Copy Link</button>
-                        </div>
-                    </div>
+                    <div style="text-align: center; margin-top: 6px;"><button onclick="event.stopPropagation(); playGameUrl('Air hockey.html')" style="background: linear-gradient(135deg, #A855F7 0%, #EC4899 100%); color: white; border: none; padding: 8px 20px; border-radius: 20px; cursor: pointer; font-size: 14px; font-weight: 600;">▶ Play</button></div>
                 </div>
             </div>
         </div>
