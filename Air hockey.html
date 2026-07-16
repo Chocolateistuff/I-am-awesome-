@@ -58,10 +58,6 @@
             0% { left: -400px; top: -200px; transform: rotate(-25deg) scale(0.5); }
             100% { left: 110%; top: 110%; transform: rotate(-25deg) scale(1.5); }
         }
-
-        #instructions {
-            color: #4fc3f7; margin-top: 20px; text-align: center; font-size: 14px;
-        }
     </style>
 </head>
 <body>
@@ -73,9 +69,6 @@
     <div id="game-container">
         <div id="scoreboard">P1: <span id="p1">0</span> | P2: <span id="p2">0</span></div>
         <canvas id="game" width="800" height="400"></canvas>
-        <div id="instructions">
-            <strong>Player 1:</strong> W (up) & S (down) | <strong>Player 2:</strong> ↑ (up) & ↓ (down)
-        </div>
     </div>
 
 <script>
@@ -94,15 +87,8 @@
     let p1 = {x: 20, y: 165, r: 35}, p2 = {x: 745, y: 165, r: 35}, ball = {x: 400, y: 200, dx: 6, dy: 6, r: 20}, p1s = 0, p2s = 0, isGameOver = false;
     const keys = {};
 
-    document.addEventListener('keydown', function(e) {
-        keys[e.key.toLowerCase()] = true;
-        keys[e.code] = true;
-    });
-
-    document.addEventListener('keyup', function(e) {
-        keys[e.key.toLowerCase()] = false;
-        keys[e.code] = false;
-    });
+    window.onkeydown = e => keys[e.code] = true;
+    window.onkeyup = e => keys[e.code] = false;
 
     function drawTable() {
         ctx.strokeStyle = '#00acc1'; ctx.lineWidth = 4; ctx.setLineDash([15, 15]);
@@ -123,14 +109,11 @@
 
     function update() {
         if(isGameOver) return;
-        
-        // Player 1 controls: W and S keys
-        if ((keys['w'] || keys['W'] || keys['KeyW']) && p1.y > 0) p1.y -= 10;
-        if ((keys['s'] || keys['S'] || keys['KeyS']) && p1.y < 330) p1.y += 10;
-        
-        // Player 2 controls: Arrow keys
-        if ((keys['ArrowUp'] || keys['ArrowUp']) && p2.y > 0) p2.y -= 10;
-        if ((keys['ArrowDown'] || keys['ArrowDown']) && p2.y < 330) p2.y += 10;
+        // Updated to W and S for Player 1
+        if (keys['KeyW'] && p1.y > 0) p1.y -= 10;
+        if (keys['KeyS'] && p1.y < 330) p1.y += 10;
+        if (keys['ArrowUp'] && p2.y > 0) p2.y -= 10;
+        if (keys['ArrowDown'] && p2.y < 330) p2.y += 10;
 
         ball.x += ball.dx; ball.y += ball.dy;
         if (ball.y < ball.r || ball.y > 400 - ball.r) ball.dy *= -1;

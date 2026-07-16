@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fridge Phantoms: Kitchen Sim</title>
+    <style>
+        body { background: #f4f1ea; color: #5a4a42; font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; overflow: hidden; }
+        #kitchen { width: 750px; height: 550px; border: 8px solid #8b7355; background: #fffaf0; position: relative; border-radius: 10px; padding: 20px; text-align: center; }
+        .ghost-icon { font-size: 50px; }
+        .ingredient-btn { font-size: 40px; cursor: pointer; border: 4px solid #8b7355; background: #fff; padding: 15px; margin: 5px; border-radius: 15px; transition: 0.2s; }
+        .ingredient-btn.active { border-color: #a8c69f; background: #f0fdf4; }
+        .ingredient-btn.error { border-color: #ff4d4d; background: #ffe6e6; }
+        #slider-track { width: 400px; height: 30px; border: 3px solid #5a4a42; position: relative; background: #dcc8a8; margin: 20px auto; }
+        #target { position: absolute; left: 150px; width: 60px; height: 30px; background: #a8c69f; }
+        #slider { position: absolute; left: 0; width: 10px; height: 30px; background: #5a4a42; }
+        /* Win/Loss/Staff Styles */
+        #overlay { position: fixed; top:0; left:0; width: 100%; height:100%; background: black; display:none; align-items:center; justify-content:center; color: white; font-size: 50px; z-index: 100; flex-direction: column; }
+        #staff-area { position: absolute; bottom: 20px; right: 20px; font-size: 60px; }
+    </style>
+</head>
+<body>
+
+    <div style="font-weight: bold; margin-bottom: 10px;">
+        Money: $<span id="money">0</span>/2000 | Avg Rating: <span id="rating">0</span>/5.0
+    </div>
+
+    <div id="kitchen">
+        <!-- Giant Chef -->
+        <div id="chef" style="font-size: 250px; position: absolute; bottom: -20px; left: 10px;">👨‍🍳</div>
+        
+        <!-- Assistant/Staff Area -->
+        <div id="staff-area"></div>
+
+        <div id="customer-info" style="display: flex; align-items: center; justify-content: center;">
+            <div id="c-avatar" class="ghost-icon">👻</div>
+            <div><h3 id="c-name">Loading...</h3><p id="c-order">...</p></div>
+        </div>
+        
+        <div id="ingredients">
+            <span class="ingredient-btn" id="Pasta" onclick="selectIng('Pasta')">🍝</span>
+            <span class="ingredient-btn" id="Pastry" onclick="selectIng('Pastry')">🥐</span>
+            <span class="ingredient-btn" id="Spice" onclick="selectIng('Spice')">🌶️</span>
+            <span class="ingredient-btn" id="Cheese" onclick="selectIng('Cheese')">🧀</span>
+            <span class="ingredient-btn" id="Veggie" onclick="selectIng('Veggie')">🥦</span>
+            <span id="dessert-box" style="display:none;"><span class="ingredient-btn" id="Cake" onclick="selectIng('Cake')">🍰</span></span>
+        </div>
+        
+        <div id="slider-track"><div id="target"></div><div id="slider"></div></div>
+        <button onclick="buyWorker()">Hire Assistant ($200)</button>
+        <p id="feedback"></p>
+    </div>
+
+    <div id="overlay"></div>
+
+    <script>
+        let money = 0, totalRating = 0, served = 0, pos = 0, speed = 6, selectedIng = "", hasAssistant = false, current = {};
+        const customers = [
+            { name: "Count Carb-ula", type: "Pasta", icon: "🧛" },
+            { name: "Grandma Puff", type: "Pastry", icon: "👵" },
+            { name: "DJ Wisp", type: "Spice", icon: "🎧" },
+            { name: "Lunar Larry", type: "Cheese", icon: "🌕" },
+            { name: "Nebula Nora", type: "Veggie", icon: "✨" }
+        ];
+
+        function nextCustomer() {
+            current = customers[Math.floor(Math.random() * customers.length)];
+            document.getElementById('c-name').innerText = current.name;
+            document.getElementById('c-order').innerText = "Needs: " + current.type;
+            document.getElementById('c-avatar').innerText = current.icon;
+        }
+
+        function selectIng(ing) { 
+            if(ing === 'Cake' && money < 50) { alert("Costs $50!"); return; }
+            if(ing === 'Cake') money -= 50;
+            selectedIng = ing;
+            document.querySelectorAll('.ingredient-btn').forEach(b => b.classList.remove('active', 'error'));
+            document.getElementById(ing).classList.add('active');
+        }
+
+        function buyWorker() {
+            if(money >= 200 && !hasAssistant) { 
+                money -= 200; 
+                hasAssistant = true; 
+                document.getElementById('staff-area').innerText = "👩‍🍳"; // The Assistant arrives!
+                alert("Assistant hired!"); 
+            } else if(hasAssistant) {
+                alert("You already have an assistant!");
+            } else {
+                alert("Need $200!");
+            }
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if(e.code === 'Space') {
+                const s = document.getElementById('slider').getBoundingClientRect();
+                const t = document.getElementById('target').getBoundingClientRect();
+                let isCorrect = (selectedIng === current.type || selectedIng === 'Cake');
+                
+                if (s.left >= t.left && s.right <= t.right && isCorrect) {
+                    totalRating += hasAssistant ? 5.0 : 4.5; served++; money += 100;
+                    document.getElementById('feedback').innerText = "Perfect!";
+                    if(money >= 1500) document.getElementById('dessert-box').style.display = 'inline';
+                } else {
+                    document.querySelectorAll('.ingredient-btn').forEach(b => b.classList.add('error'));
+                    money = Math.max(0, money - 20);
+                    document.getElementById('feedback').innerText = "Missed!";
+                }
+                document.getElementById('money').innerText = money;
+                document.getElementById('rating').innerText = (totalRating / served || 0).toFixed(1);
+                
+                if(money >= 2000) triggerWin();
+                else if(money <= 0 && served > 5) triggerLoss();
+                else nextCustomer();
+            }
+        });
+
+        function animate() {
+            pos += speed;
+            if (pos > 390 || pos < 0) speed *= -1;
+            document.getElementById('slider').style.left = pos + 'px';
+            requestAnimationFrame(animate);
+        }
+
+        function triggerWin() { document.getElementById('overlay').style.display = 'flex'; document.getElementById('overlay').innerHTML = "<h1>DISCO PARTY TIME! 🕺💃</h1>"; }
+        function triggerLoss() { document.getElementById('overlay').style.display = 'flex'; document.getElementById('overlay').innerHTML = "<h1>UH-OH!!!! YOU LOST!!</h1>"; }
+
+        nextCustomer(); 
+        animate();
+    </script>
+</body>
+</html>

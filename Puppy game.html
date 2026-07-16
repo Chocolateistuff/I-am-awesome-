@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Puppy Sunset Paradise</title>
+    <style>
+        body { margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; background: #222; font-family: sans-serif; }
+        #game-area { width: 600px; height: 400px; position: relative; border: 5px solid #fff; overflow: hidden; background: linear-gradient(to bottom, #ff7e5f, #feb47b); transition: background 0.5s; }
+        .lane-divider { position: absolute; width: 100%; height: 1px; background: rgba(255,255,255,0.2); }
+
+        /* Palm Tree */
+        #palm-tree { position: absolute; bottom: 50px; right: 20px; font-size: 80px; z-index: 1; }
+
+        /* Puppy */
+        #puppy { position: absolute; left: 50px; top: 175px; width: 80px; height: 50px; z-index: 10; transition: top 0.1s; }
+        .body { position: absolute; width: 45px; height: 25px; background: #cd853f; border-radius: 12px; top: 15px; left: 10px; transition: background 0.5s; }
+        .head { position: absolute; width: 28px; height: 28px; background: #cd853f; border-radius: 50%; left: 45px; top: 8px; transition: background 0.5s; }
+        .ear { position: absolute; width: 10px; height: 16px; background: #cd853f; border-radius: 50% 50% 0 0; top: -5px; transition: background 0.5s; }
+        .tail { position: absolute; width: 15px; height: 6px; background: #cd853f; left: 5px; top: 22px; animation: wag 0.4s infinite alternate; transition: background 0.5s; }
+        .leg { position: absolute; width: 6px; height: 10px; background: #cd853f; top: 35px; border-radius: 2px; transition: background 0.5s; }
+        #party-hat { display: none; position: absolute; left: 55px; top: -5px; font-size: 20px; }
+        
+        @keyframes wag { from { transform: rotate(10deg); } to { transform: rotate(-20deg); } }
+
+        .item { position: absolute; width: 40px; height: 40px; font-size: 30px; display: flex; justify-content: center; align-items: center; z-index: 5; }
+        .bone { filter: drop-shadow(0 0 5px white); }
+        /* Toned down human obstacles */
+        .human { border: 1px solid rgba(150, 0, 0, 0.4); background: rgba(200, 50, 50, 0.15); border-radius: 5px; }
+
+        #menu { position: absolute; width: 100%; height: 100%; background: rgba(0,0,0,0.6); color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 20; }
+        #stats { position: absolute; top: 10px; left: 10px; color: white; font-weight: bold; font-size: 18px; text-shadow: 1px 1px 2px black; }
+        #banner { position: absolute; top: 50%; width: 100%; text-align: center; color: white; font-size: 40px; font-weight: bold; opacity: 0; pointer-events: none; }
+    </style>
+</head>
+<body>
+
+    <div id="game-area">
+        <div id="palm-tree">🌴</div>
+        <div class="lane-divider" style="top: 100px;"></div>
+        <div class="lane-divider" style="top: 200px;"></div>
+        <div class="lane-divider" style="top: 300px;"></div>
+
+        <div id="stats">Bones: 0 | Wave: 1 | Jumps: 5</div>
+        <div id="banner"></div>
+        <div id="puppy">
+            <div id="party-hat">🎉</div>
+            <div class="tail"></div>
+            <div class="body"></div>
+            <div class="head">
+                <div class="ear" style="left: 2px;"></div>
+                <div class="ear" style="left: 16px;"></div>
+            </div>
+            <div class="leg" style="left:15px;"></div>
+            <div class="leg" style="left:40px;"></div>
+        </div>
+        <div id="menu">
+            <h1>Puppy Sunset Paradise</h1>
+            <p>Spacebar = Jump over Human (5 charges)</p>
+            <button id="startBtn" style="padding: 15px 30px; font-size: 20px;">START GAME</button>
+        </div>
+    </div>
+
+    <script>
+        const gameArea = document.getElementById('game-area');
+        const puppy = document.getElementById('puppy');
+        const statsEl = document.getElementById('stats');
+        const banner = document.getElementById('banner');
+        let currentLane = 2, bones = 0, wave = 1, jumps = 5, gameActive = false, speed = 5, challenge = false;
+
+        function updatePuppyColors(isChallenge) {
+            const colors = isChallenge ? {body: "#ffffff"} : {body: "#cd853f"};
+            document.querySelectorAll('.body, .head, .ear, .tail, .leg').forEach(el => el.style.background = colors.body);
+            // Updated to 30 bones for party hat
+            if (bones >= 30) document.getElementById('party-hat').style.display = "block";
+        }
+
+        document.getElementById('startBtn').addEventListener('click', () => {
+            document.getElementById('menu').style.display = 'none';
+            gameActive = true;
+            gameLoop();
+        });
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === "ArrowUp" && currentLane > 0) currentLane--;
+            if (e.key === "ArrowDown" && currentLane < 3) currentLane++;
+            if (e.code === "Space" && jumps > 0) {
+                jumps--; updateStats();
+                puppy.style.opacity = "0.5";
+                setTimeout(() => puppy.style.opacity = "1", 1000);
+            }
+            puppy.style.top = (currentLane * 100 + 25) + "px";
+        });
+
+        function updateStats() { statsEl.innerText = `Bones: ${bones} | Wave: ${wave} | Jumps: ${jumps}`; }
+        function showBanner(text) { banner.innerText = text; banner.style.opacity = "1"; setTimeout(() => banner.style.opacity = "0", 2000); }
+
+        function gameLoop() {
+            if (!gameActive) return;
+            
+            // Updated to 15 bones for challenge level
+            if (bones >= 15 && bones < 75 && !challenge) { challenge = true; speed = 12; gameArea.style.background = "#ADD8E6"; updatePuppyColors(true); showBanner("CHALLENGE LEVEL"); }
+            if (bones >= 75 && challenge) { challenge = false; speed = 6; gameArea.style.background = "linear-gradient(to bottom, #ff7e5f, #feb47b)"; updatePuppyColors(false); showBanner("Victory!"); }
+            if (bones >= wave * 10 && bones < 15) { wave++; speed += 1; showBanner("Wave " + wave); }
+            
+            if (Math.random() < 0.02 + (wave * 0.005)) {
+                let lane = Math.floor(Math.random() * 4);
+                let clear = true;
+                document.querySelectorAll('.item').forEach(i => { if (parseInt(i.dataset.lane) === lane && parseInt(i.style.left) > 400) clear = false; });
+                if (clear) {
+                    const item = document.createElement('div');
+                    const isBone = Math.random() > 0.4;
+                    item.className = 'item ' + (isBone ? 'bone' : 'human');
+                    item.innerText = isBone ? '🦴' : '🧍';
+                    item.dataset.type = isBone ? 'bone' : 'human';
+                    item.dataset.lane = lane;
+                    item.style.left = '600px';
+                    item.style.top = (lane * 100 + 30) + 'px';
+                    gameArea.appendChild(item);
+                }
+            }
+
+            document.querySelectorAll('.item').forEach(item => {
+                let x = parseInt(item.style.left);
+                item.style.left = (x - speed) + 'px';
+
+                if (parseInt(item.dataset.lane) === currentLane && x < 100 && x > 0) {
+                    if (item.dataset.type === 'bone') { 
+                        bones++; 
+                        updateStats(); 
+                        item.remove(); 
+                        updatePuppyColors(challenge); // Ensure hat check updates
+                    } else if (puppy.style.opacity !== "0.5") {
+                        gameActive = false; alert("Caught by human! Score: " + bones); location.reload();
+                    }
+                }
+                if (x < -50) item.remove();
+            });
+            requestAnimationFrame(gameLoop);
+        }
+    </script>
+</body>
+</html>
