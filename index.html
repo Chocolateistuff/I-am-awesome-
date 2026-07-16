@@ -622,6 +622,22 @@
             }
         }
 
+        function playGameUrl(url) {
+            const gameModal = document.getElementById('gameModal');
+            const gameFrame = document.getElementById('gameFrame');
+            const spinner = gameModal.querySelector('.loading-spinner');
+
+            gameModal.style.display = 'flex';
+            spinner.style.display = 'block';
+            gameFrame.style.display = 'none';
+
+            gameFrame.onload = () => {
+                spinner.style.display = 'none';
+                gameFrame.style.display = 'block';
+            };
+            gameFrame.src = url;
+        }
+
         function playGame(gameIdVar) {
             if (games[gameIdVar]) {
                 const gameModal = document.getElementById('gameModal');
@@ -701,31 +717,19 @@
             
             if (game1Box) {
                 game1Box.addEventListener('click', function(e) {
-                    if (games.game1) {
-                        playGame('game1');
-                    } else {
-                        document.getElementById('gameFile1').click();
-                    }
+                    playGameUrl('Fridge Phantoms.html');
                 });
             }
             
             if (game2Box) {
                 game2Box.addEventListener('click', function(e) {
-                    if (games.game2) {
-                        playGame('game2');
-                    } else {
-                        document.getElementById('gameFile2').click();
-                    }
+                    playGameUrl('Puppy game.html');
                 });
             }
             
             if (game3Box) {
                 game3Box.addEventListener('click', function(e) {
-                    if (games.game3) {
-                        playGame('game3');
-                    } else {
-                        document.getElementById('gameFile3').click();
-                    }
+                    playGameUrl('Air hockey.html');
                 });
             }
         });
