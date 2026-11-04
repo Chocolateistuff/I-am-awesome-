@@ -15,9 +15,8 @@
                 if (!response.ok) throw new Error('Could not load the saved original website.');
                 let html = await response.text();
 
-                // Keep the original page and all of its sections/features, changing only the requested details.
+                // Preserve the original website and restyle its books as a lavender/pink bookshelf.
                 html = html.replace('</style>', `
-                    /* Bookshelf spines */
                     .books-grid {
                         display: flex !important;
                         flex-wrap: wrap;
@@ -25,9 +24,9 @@
                         justify-content: center;
                         gap: 8px;
                         padding: 24px 12px 0;
-                        border-bottom: 18px solid #9a653d;
+                        border-bottom: 18px solid #c9b1d6;
                         border-radius: 6px 6px 0 0;
-                        background: linear-gradient(to bottom, transparent 0 94%, #c28a57 94% 100%);
+                        background: linear-gradient(to bottom, transparent 0 94%, #e8d4ff 94% 100%);
                     }
                     .book-card.book-spine {
                         width: 62px;
@@ -38,45 +37,106 @@
                         align-items: center;
                         justify-content: space-between;
                         border: 0;
-                        border-left: 5px solid rgba(255,255,255,.25);
+                        border-left: 5px solid rgba(255,255,255,.45);
                         border-radius: 4px 8px 2px 2px;
                         color: #fff;
-                        background: linear-gradient(90deg, rgba(0,0,0,.2), transparent 25%), #7952a0;
-                        box-shadow: 3px 4px 5px rgba(45, 28, 20, .25);
+                        background: linear-gradient(90deg, rgba(91,64,112,.24), transparent 35%), linear-gradient(160deg, #c9b1d6, #a98bc0);
+                        box-shadow: 3px 4px 7px rgba(90, 65, 110, .2);
                         writing-mode: vertical-rl;
+                        cursor: pointer;
                         transition: transform .2s ease, box-shadow .2s ease;
                     }
-                    .book-card.book-spine:nth-child(4n+2) { background-color: #b94f70; }
-                    .book-card.book-spine:nth-child(4n+3) { background-color: #3c7282; }
-                    .book-card.book-spine:nth-child(4n+4) { background-color: #987139; }
-                    .book-card.book-spine:hover {
+                    .book-card.book-spine:nth-child(4n+2) { background: linear-gradient(90deg, rgba(120,54,85,.2), transparent 35%), linear-gradient(160deg, #f3b8d0, #d98db3); }
+                    .book-card.book-spine:nth-child(4n+3) { background: linear-gradient(90deg, rgba(53,91,112,.2), transparent 35%), linear-gradient(160deg, #b3e5fc, #82bed6); }
+                    .book-card.book-spine:nth-child(4n+4) { background: linear-gradient(90deg, rgba(88,68,122,.2), transparent 35%), linear-gradient(160deg, #d8c5f0, #b09bd3); }
+                    .book-card.book-spine:hover, .book-card.book-spine:focus-visible {
                         transform: translateY(-10px) rotate(2deg);
-                        box-shadow: 5px 8px 10px rgba(45, 28, 20, .3);
+                        box-shadow: 5px 8px 12px rgba(90, 65, 110, .28);
+                        outline: 3px solid #a855f7;
+                        outline-offset: 2px;
                     }
-                    .book-card.book-spine .book-title {
-                        color: #fff !important;
-                        font-size: 13px;
-                        font-weight: 700;
-                        margin: 0;
+                    .book-card.book-spine .book-title { color: #fff !important; font-size: 13px; font-weight: 700; margin: 0; }
+                    .book-card.book-spine .book-author { color: rgba(255,255,255,.96); font-size: 11px; opacity: 1; }
+                    .book-cover-modal {
+                        display: none; position: fixed; inset: 0; z-index: 3000;
+                        align-items: center; justify-content: center; padding: 20px;
+                        background: rgba(53, 38, 64, .72);
                     }
-                    .book-card.book-spine .book-author {
-                        color: rgba(255,255,255,.9);
-                        font-size: 11px;
-                        opacity: 1;
+                    .book-cover-panel {
+                        position: relative; width: min(92vw, 520px); max-height: 90vh; overflow-y: auto;
+                        padding: 28px; border: 3px solid #e8d4ff; border-radius: 24px;
+                        background: linear-gradient(145deg, #fff0f5, #f0e6ff 55%, #e1f5fe);
+                        color: #4a5568; text-align: center; box-shadow: 0 14px 40px rgba(35,20,45,.3);
                     }
-                    .dog-picture-fallback { font-size: 120px; text-align: center; padding: 25px; }
-                    @media (max-width: 768px) {
-                        .book-card.book-spine { width: 52px; height: 195px; padding: 10px 6px; }
+                    .book-cover-panel h2 { color: #8d68a5; margin: 0 35px 8px; }
+                    .book-cover-panel p { margin: 0 0 16px; }
+                    .book-cover-image { display: block; max-width: min(100%, 300px); max-height: 58vh; margin: 0 auto 12px; border-radius: 8px; box-shadow: 0 8px 20px rgba(60,40,70,.25); }
+                    .book-cover-close {
+                        position: absolute; top: 8px; right: 12px; border: 0; background: #d8bfe8;
+                        color: #513d60; border-radius: 50%; width: 38px; height: 38px;
+                        font-size: 25px; cursor: pointer;
                     }
+                    @media (max-width: 768px) { .book-card.book-spine { width: 52px; height: 195px; padding: 10px 6px; } }
                 </style>`);
 
-                html = html.replaceAll('class="book-card"', 'class="book-card book-spine"');
-                const scythe = '<div class="book-card book-spine"><div class="book-title">Scythe Series</div><div class="book-author">Neal Shusterman</div></div>';
+                html = html.replaceAll('class="book-card"', 'class="book-card book-spine" role="button" tabindex="0"');
+                const scythe = '<div class="book-card book-spine" role="button" tabindex="0"><div class="book-title">Scythe Series</div><div class="book-author">Neal Shusterman</div></div>';
                 const alchemyst = '<div class="book-title">The Alchemyst (Book 1)</div>';
-                if (!html.includes('Scythe Series') && html.includes(alchemyst)) {
-                    html = html.replace(alchemyst, scythe + alchemyst);
-                }
-                html = html.replace('<img id="dogImage"', '<div class="dog-picture-fallback" aria-label="Dog">🐶</div><img id="dogImage" onerror="this.style.display=\'none\'"');
+                if (!html.includes('Scythe Series') && html.includes(alchemyst)) html = html.replace(alchemyst, scythe + alchemyst);
+
+                // Remove the decorative heart that was covering the dog photo.
+                html = html.replace(/<div style="position: absolute; top: 50%; left: 50%; transform: translate\(-50%, -50%\); font-size: 48px; pointer-events: none;">❤️<\/div>/, '');
+
+                // Add a cover viewer; cover images are retrieved from Google Books when a spine is clicked.
+                html = html.replace('</body>', `
+                    <div class="book-cover-modal" id="bookCoverModal" role="dialog" aria-modal="true" aria-labelledby="bookCoverTitle">
+                        <div class="book-cover-panel">
+                            <button class="book-cover-close" id="bookCoverClose" aria-label="Close">×</button>
+                            <h2 id="bookCoverTitle"></h2><p id="bookCoverAuthor"></p>
+                            <img class="book-cover-image" id="bookCoverImage" alt="Book cover" hidden>
+                            <p id="bookCoverMessage">Finding the cover…</p>
+                        </div>
+                    </div>
+                    <script>
+                        (function () {
+                            var modal = document.getElementById('bookCoverModal');
+                            var close = function () { modal.style.display = 'none'; document.body.style.overflow = ''; };
+                            document.getElementById('bookCoverClose').addEventListener('click', close);
+                            modal.addEventListener('click', function (event) { if (event.target === modal) close(); });
+                            document.addEventListener('keydown', function (event) {
+                                if (event.key === 'Escape') close();
+                                var spine = event.target.closest && event.target.closest('.book-spine');
+                                if (spine && (event.key === 'Enter' || event.key === ' ')) { event.preventDefault(); spine.click(); }
+                            });
+                            document.querySelectorAll('.book-spine').forEach(function (spine) {
+                                spine.addEventListener('click', async function () {
+                                    var title = spine.querySelector('.book-title').textContent.trim();
+                                    var author = spine.querySelector('.book-author').textContent.trim();
+                                    var cover = document.getElementById('bookCoverImage');
+                                    var message = document.getElementById('bookCoverMessage');
+                                    document.getElementById('bookCoverTitle').textContent = title;
+                                    document.getElementById('bookCoverAuthor').textContent = 'by ' + author;
+                                    cover.hidden = true; cover.removeAttribute('src');
+                                    message.textContent = 'Finding the cover…';
+                                    modal.style.display = 'flex'; document.body.style.overflow = 'hidden';
+                                    try {
+                                        var query = encodeURIComponent('intitle:' + title.replace(/ Series$/, '') + ' inauthor:' + author);
+                                        var result = await fetch('https://www.googleapis.com/books/v1/volumes?q=' + query + '&maxResults=1');
+                                        if (!result.ok) throw new Error('No cover found');
+                                        var data = await result.json();
+                                        var image = data.items && data.items[0] && data.items[0].volumeInfo && data.items[0].volumeInfo.imageLinks;
+                                        var coverUrl = image && (image.thumbnail || image.smallThumbnail);
+                                        if (!coverUrl) throw new Error('No cover found');
+                                        cover.src = coverUrl.replace(/^http:/, 'https:');
+                                        cover.hidden = false; message.textContent = '';
+                                    } catch (error) {
+                                        message.textContent = 'Sorry, a cover image could not be found right now.';
+                                    }
+                                });
+                            });
+                        })();
+                    <\/script>
+                </body>`);
 
                 document.open();
                 document.write(html);
