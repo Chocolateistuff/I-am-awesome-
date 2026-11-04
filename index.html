@@ -3,741 +3,211 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NutellaWaffle - Creative & Curious</title>
+    <title>Chocolateistuff | My Website</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        body {
-            background: linear-gradient(135deg, #ffe6f2 0%, #e6f0ff 50%, #f0e6ff 100%);
-        }
-
-        body.dark-mode {
-            background: linear-gradient(135deg, #2d1b3d 0%, #1b2d3d 50%, #2d1b3d 100%);
-            color: #e0e0e0;
-        }
-
-        body.dark-mode .section {
-            background: rgba(20, 20, 35, 0.9);
-        }
-
-        body.dark-mode .section-title {
-            color: #e0e0e0;
-        }
-
-        body.dark-mode .navbar {
-            background: rgba(15, 15, 25, 0.95);
-        }
-
-        #theme-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            background: linear-gradient(135deg, #A855F7 0%, #EC4899 100%);
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 50px;
-            font-size: 18px;
-            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
-            transition: all 0.3s ease;
-        }
-
-        #theme-toggle:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(168, 85, 247, 0.6);
-        }
-
-        .fade-in {
-            animation: fadeInUp 0.8s ease-out forwards;
-            opacity: 0;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .loading-spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(168, 85, 247, 0.3);
-            border-radius: 50%;
-            border-top-color: #A855F7;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .fun-facts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .fun-fact-card {
-            background: rgba(168, 85, 247, 0.08);
-            border: 2px solid rgba(168, 85, 247, 0.3);
-            border-radius: 15px;
-            padding: 20px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        body.dark-mode .fun-fact-card {
-            background: rgba(168, 85, 247, 0.12);
-            border: 2px solid rgba(168, 85, 247, 0.25);
-        }
-
-        .fun-fact-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(168, 85, 247, 0.2);
-            border-color: rgba(168, 85, 247, 0.5);
-        }
-
-        .fun-fact-emoji {
-            font-size: 40px;
-            margin-bottom: 10px;
-        }
-
-        .fun-fact-text {
-            font-size: 16px;
-            color: #333;
-            font-weight: 500;
-        }
-
-        body.dark-mode .fun-fact-text {
-            color: #e0e0e0;
-        }
-
-        .books-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .book-card {
-            background: rgba(168, 85, 247, 0.12);
-            border: 2px solid rgba(168, 85, 247, 0.25);
-            border-radius: 10px;
-            padding: 15px;
-            text-align: center;
-            color: #333;
-            box-shadow: 0 4px 12px rgba(168, 85, 247, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        body.dark-mode .book-card {
-            background: rgba(168, 85, 247, 0.15);
-            border: 2px solid rgba(168, 85, 247, 0.2);
-            color: #e0e0e0;
-        }
-
-        .book-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 18px rgba(168, 85, 247, 0.2);
-            border-color: rgba(168, 85, 247, 0.4);
-        }
-
-        .book-title {
-            font-weight: 600;
-            font-size: 14px;
-            margin-bottom: 8px;
-            color: #A855F7;
-        }
-
-        body.dark-mode .book-title {
-            color: #d8b4ff;
-        }
-
-        .book-author {
-            font-size: 12px;
-            opacity: 0.8;
-        }
-
-        @media (max-width: 768px) {
-            #theme-toggle {
-                top: 10px;
-                right: 10px;
-                padding: 10px 15px;
-                font-size: 16px;
-            }
-
-            .fun-facts-grid {
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            }
-
-            .books-grid {
-                grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-            }
-        }
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Theme Toggle Button -->
-    <button id="theme-toggle" onclick="toggleTheme()">🌙</button>
-
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo">✨ 🧇 NutellaWaffle 🍫 ✨</div>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#fun-facts">Fun Facts</a></li>
-                <li><a href="#interests">Interests</a></li>
-                <li><a href="#games">Games</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#books">Books</a></li>
-                <li><a href="#journal">Journal</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <!-- HERO SECTION: Welcome & Intro -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1 class="hero-title">Hello! I'm NutellaWaffle 🧇</h1>
-            <p class="hero-subtitle">A creative 7th grader exploring music, art, science & imagination</p>
-            <button class="cta-button" onclick="document.getElementById('about').scrollIntoView({behavior: 'smooth'})">Learn More About Me</button>
-        </div>
-        <div class="hero-decoration"></div>
-    </section>
-
-    <!-- ABOUT ME SECTION -->
-    <section id="about" class="section fade-in">
-        <div class="container">
-            <h2 class="section-title">About Me 💫 💐</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>Hi! I'm a 7th grader who loves creating, learning, and experimenting with new things. I'm passionate about music, art, dance, and discovering how things work.</p>
-                    <p><strong>🏆 My proudest achievement:</strong> I won 1st place at a piano competition in my level (multiple times!)</p>
-                    <p><strong>🎯 Currently working on:</strong> Starting a card business and planning a lemonade stand for charity</p>
-                    <p><strong>📚 Next goals:</strong> Learn and solve increasingly challenging math problems and master harder pieces on violin and piano</p>
-                </div>
-                <div class="about-image" style="background: linear-gradient(135deg, rgba(255, 212, 229, 0.3) 0%, rgba(224, 187, 228, 0.3) 100%); padding: 15px; border-radius: 25px; position: relative;">
-                    <img id="dogImage" src="https://images.unsplash.com/photo-1633722715463-d30628cad4ae?w=800&h=800&fit=crop&q=90" alt="Cute dog in flowers" style="width: 100%; height: auto; border-radius: 20px; box-shadow: 0 8px 20px rgba(255, 215, 0, 0.2);">
-                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 48px; pointer-events: none;">❤️</div>
-                </div>
+    <div class="page-shell">
+        <header class="topbar">
+            <div class="container nav-container">
+                <div class="brand">Chocolateistuff</div>
+                <nav class="main-nav">
+                    <a href="#about">About</a>
+                    <a href="#interests">Interests</a>
+                    <a href="#projects">Projects</a>
+                    <a href="#books">Books</a>
+                    <a href="#journal">Journal</a>
+                </nav>
             </div>
-        </div>
-    </section>
+        </header>
 
-    <!-- FUN FACTS SECTION -->
-    <section id="fun-facts" class="section alternate fade-in">
-        <div class="container">
-            <h2 class="section-title">Fun Facts About Me! 🎉</h2>
-            <div class="fun-facts-grid">
-                <div class="fun-fact-card">
-                    <div class="fun-fact-emoji">🐕</div>
-                    <div class="fun-fact-text">My favorite animals are dogs!</div>
+        <main>
+            <section id="hero" class="hero section">
+                <div class="container hero-content">
+                    <div class="hero-text">
+                        <p class="eyebrow">Welcome to my world</p>
+                        <h1>Hi! I'm <span>Chocolateistuff</span></h1>
+                        <p class="tagline">Book lover • Creator • Dreamer • Future entrepreneur</p>
+                        <div class="cta-row">
+                            <a href="#books" class="btn primary">See what I read</a>
+                            <a href="#projects" class="btn secondary">Explore my projects</a>
+                        </div>
+                    </div>
+                    <div class="hero-visual">
+                        <div class="emoji-orb">📚✨</div>
+                    </div>
                 </div>
-                <div class="fun-fact-card">
-                    <div class="fun-fact-emoji">💜</div>
-                    <div class="fun-fact-text">I love purple (especially lavender) & light pink!</div>
-                </div>
-                <div class="fun-fact-card">
-                    <div class="fun-fact-emoji">📚</div>
-                    <div class="fun-fact-text">My top 2 hobbies are reading & art + crafts!</div>
-                </div>
-                <div class="fun-fact-card">
-                    <div class="fun-fact-emoji">🥭</div>
-                    <div class="fun-fact-text">My favorite fruit is mangos!</div>
-                </div>
-            </div>
-        </div>
-    </section>
+            </section>
 
-    <!-- INTERESTS SECTION -->
-    <section id="interests" class="section fade-in">
-        <div class="container">
-            <h2 class="section-title">My Interests 🌈</h2>
-            <div class="interests-grid">
-                <div class="interest-card">
-                    <div class="interest-emoji">📖</div>
-                    <h3>Reading</h3>
-                    <p>Getting lost in stories and exploring new worlds through books</p>
+            <section id="about" class="section fade-in">
+                <div class="container">
+                    <h2 class="section-title">About Me</h2>
+                    <div class="about-box">
+                        <p>Hi! I'm a creative, curious person who loves making things, learning new things, and getting lost in a good story. I enjoy reading fantasy, crafting, playing music, and dreaming up ideas for future projects.</p>
+                        <p>I love spending time doing things that spark my imagination and help me grow, whether that's through writing, art, learning a new language, or exploring creative business ideas.</p>
+                    </div>
                 </div>
-                <div class="interest-card">
-                    <div class="interest-emoji">🎨</div>
-                    <h3>Arts & Crafts</h3>
-                    <p>Creating beautiful things with my hands and imagination</p>
-                </div>
-                <div class="interest-card">
-                    <div class="interest-emoji">🎹</div>
-                    <h3>Piano & Violin</h3>
-                    <p>Making beautiful music and mastering challenging pieces</p>
-                </div>
-                <div class="interest-card">
-                    <div class="interest-emoji">🎤</div>
-                    <h3>Singing</h3>
-                    <p>Expressing myself through music and performing</p>
-                </div>
-                <div class="interest-card">
-                    <div class="interest-emoji">💃</div>
-                    <h3>Dance</h3>
-                    <p>Indian dance, creative dancing, enjoying every step and movement 🎭</p>
-                </div>
-                <div class="interest-card">
-                    <div class="interest-emoji">🔬</div>
-                    <h3>Experiments</h3>
-                    <p>From fun and creative recipes to cool science experiments - discovering how things work!</p>
-                </div>
-                <div class="interest-card">
-                    <div class="interest-emoji">🧮</div>
-                    <h3>Challenging Math</h3>
-                    <p>Solving those special math problems that make me excited!</p>
-                </div>
-                <div class="interest-card">
-                    <div class="interest-emoji">🇩🇪</div>
-                    <h3>𝘋𝘦𝘶𝘵𝘴𝘤𝘩</h3>
-                    <p>Speaking German and exploring German culture and traditions</p>
-                </div>
-            </div>
-        </div>
-    </section>
+            </section>
 
-    <!-- GAMES SECTION -->
-    <section id="games" class="section fade-in">
-        <div class="container">
-            <h2 class="section-title">Games 🎮</h2>
-            <div class="interests-grid">
-                <div class="interest-card clickable-card">
-                    <input type="file" id="gameFile1" accept=".html,.htm" style="display: none;" onchange="handleGameUpload(event, 'game1')">
-                    <div class="game-box" id="game1" style="cursor: pointer; position: relative; overflow: hidden;">
-                        <img id="game1Image" src="https://images.shutterstock.com/shutterstock/photos/2671821377/display_1500/stock-photo-air-hockey-game-table-with-red-pucks-and-paddles-in-neon-lighting-2671821377.jpg?w=400&h=300&fit=crop" alt="Midnight Food Crisis" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                    <div style="text-align: center; margin-top: 10px; font-weight: 600; color: #A855F7;">Midnight Food Crisis</div>
-                </div>
-                <div class="interest-card clickable-card">
-                    <input type="file" id="gameFile2" accept=".html,.htm" style="display: none;" onchange="handleGameUpload(event, 'game2')">
-                    <div class="game-box" id="game2" style="cursor: pointer; position: relative; overflow: hidden;">
-                        <img id="game2Image" src="https://images.shutterstock.com/shutterstock/photos/2660861031/display_1500/stock-photo-happy-golden-retriever-holding-large-bone-treat-2660861031.jpg?w=400&h=300&fit=crop" alt="Puppy Paradise" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                    <div style="text-align: center; margin-top: 10px; font-weight: 600; color: #A855F7;">Puppy Paradise</div>
-                </div>
-                <div class="interest-card clickable-card">
-                    <input type="file" id="gameFile3" accept=".html,.htm" style="display: none;" onchange="handleGameUpload(event, 'game3')">
-                    <div class="game-box" id="game3" style="cursor: pointer; position: relative; overflow: hidden;">
-                        <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;">
-                            <defs>
-                                <linearGradient id="airHockeyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" style="stop-color:#1a1a3e;stop-opacity:1" />
-                                    <stop offset="50%" style="stop-color:#0a0a2e;stop-opacity:1" />
-                                    <stop offset="100%" style="stop-color:#16213e;stop-opacity:1" />
-                                </linearGradient>
-                                <filter id="glow">
-                                    <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-                                    <feMerge>
-                                        <feMergeNode in="coloredBlur"/>
-                                        <feMergeNode in="SourceGraphic"/>
-                                    </feMerge>
-                                </filter>
-                            </defs>
-                            <rect width="400" height="300" fill="url(#airHockeyGrad)"/>
-                            <rect x="20" y="40" width="360" height="220" rx="10" fill="#4a90e2" opacity="0.3" stroke="#00ffff" stroke-width="2"/>
-                            <line x1="200" y1="50" x2="200" y2="250" stroke="#00ffff" stroke-width="1" stroke-dasharray="5,5" opacity="0.5"/>
-                            <ellipse cx="50" cy="150" rx="12" ry="35" fill="#ff1493" filter="url(#glow)" opacity="0.9"/>
-                            <ellipse cx="350" cy="150" rx="12" ry="35" fill="#ff1493" filter="url(#glow)" opacity="0.9"/>
-                            <circle cx="200" cy="120" r="8" fill="#ff1493" filter="url(#glow)" opacity="0.95"/>
-                            <circle cx="200" cy="120" r="15" fill="none" stroke="#ff1493" stroke-width="1" opacity="0.3"/>
-                            <rect x="20" y="100" width="20" height="100" fill="#00ffff" opacity="0.1" stroke="#00ffff" stroke-width="1"/>
-                            <rect x="360" y="100" width="20" height="100" fill="#00ffff" opacity="0.1" stroke="#00ffff" stroke-width="1"/>
-                        </svg>
-                    </div>
-                    <div style="text-align: center; margin-top: 10px; font-weight: 600; color: #A855F7;">Air Hockey: 2 Player Game</div>
-                    <div id="game3ShareContainer" style="text-align: center; margin-top: 8px; display: none;">
-                        <button onclick="toggleShareLink('game3')" style="background: linear-gradient(135deg, #A855F7 0%, #EC4899 100%); color: white; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; font-size: 14px; font-weight: 600;">📋 Generate Share Link</button>
-                        <div id="game3LinkContainer" style="display: none; margin-top: 12px;">
-                            <p style="font-size: 12px; color: #666; margin-bottom: 8px;">Share this link with friends:</p>
-                            <div style="background: #f5f5f5; padding: 10px; border-radius: 10px; word-break: break-all; border: 2px solid #A855F7;">
-                                <span id="game3Link" style="color: #333; font-family: monospace; font-size: 14px; font-weight: bold;"></span>
-                            </div>
-                            <button onclick="copyToClipboard('game3Link')" style="margin-top: 8px; background: #A855F7; color: white; border: none; padding: 6px 12px; border-radius: 15px; cursor: pointer; font-size: 12px;">Copy Link</button>
+            <section id="interests" class="section alternate fade-in">
+                <div class="container">
+                    <h2 class="section-title">My Interests</h2>
+                    <div class="interests-grid">
+                        <div class="interest-card" onclick="openModal('readingInterest')">
+                            <div class="interest-icon">📖</div>
+                            <h3>Reading</h3>
+                        </div>
+                        <div class="interest-card" onclick="openModal('artsInterest')">
+                            <div class="interest-icon">🎨</div>
+                            <h3>Arts & Crafts</h3>
+                        </div>
+                        <div class="interest-card" onclick="openModal('musicInterest')">
+                            <div class="interest-icon">🎵</div>
+                            <h3>Piano & Violin</h3>
+                        </div>
+                        <div class="interest-card" onclick="openModal('singingInterest')">
+                            <div class="interest-icon">🎤</div>
+                            <h3>Singing</h3>
+                        </div>
+                        <div class="interest-card" onclick="openModal('danceInterest')">
+                            <div class="interest-icon">💃</div>
+                            <h3>Dance</h3>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
+            </section>
 
-    <!-- PROJECTS SECTION -->
-    <section id="projects" class="section fade-in">
-        <div class="container">
-            <h2 class="section-title">My Projects & Activities 🚀</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-header">🎵</div>
-                    <h3>Piano & Music Journey</h3>
-                    <p>Training, performing, and winning competitions. Currently working on harder classical pieces!</p>
-                    <span class="project-status">Ongoing</span>
-                </div>
-                <div class="project-card">
-                    <div class="project-header">💃</div>
-                    <h3>Dance & Performance</h3>
-                    <p>Expressing myself through movement and performing on stage</p>
-                    <span class="project-status">Ongoing</span>
-                </div>
-                <div class="project-card">
-                    <div class="project-header">🎨</div>
-                    <h3>Card Business</h3>
-                    <p>Starting my own handmade card business! Creating beautiful, unique cards</p>
-                    <span class="project-status">In Progress</span>
-                </div>
-                <div class="project-card">
-                    <div class="project-header">🍋</div>
-                    <h3>Lemonade Stand for Charity</h3>
-                    <p>Planning to run a lemonade stand and donate the proceeds to a good cause</p>
-                    <span class="project-status">Planning</span>
-                </div>
-                <div class="project-card">
-                    <div class="project-header">📖</div>
-                    <h3>Learning German 🇩🇪</h3>
-                    <p>Mastering a new language and diving into German culture!</p>
-                    <span class="project-status">In Progress</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- BOOKS SECTION -->
-    <section id="books" class="section alternate fade-in">
-        <div class="container">
-            <h2 class="section-title">Books I've Read This Year 📚</h2>
-            <p style="text-align: center; margin-bottom: 20px;">Some of my favorite reads from the past year!</p>
-            <div class="books-grid">
-                <div class="book-card">
-                    <div class="book-title">Percy Jackson Series</div>
-                    <div class="book-author">Rick Riordan</div>
-                </div>
-                <div class="book-card">
-                    <div class="book-title">Heroes of Olympus Series</div>
-                    <div class="book-author">Rick Riordan</div>
-                </div>
-                <div class="book-card">
-                    <div class="book-title">Trials of Apollo Series</div>
-                    <div class="book-author">Rick Riordan</div>
-                </div>
-                <div class="book-card">
-                    <div class="book-title">Red Queen Series</div>
-                    <div class="book-author">Victoria Aveyard</div>
-                </div>
-                <div class="book-card">
-                    <div class="book-title">The Inheritance Games (Book 1-2)</div>
-                    <div class="book-author">Jennifer Lynn Barnes</div>
-                </div>
-                <div class="book-card">
-                    <div class="book-title">Harry Potter Series</div>
-                    <div class="book-author">J.K. Rowling (Reread)</div>
-                </div>
-                <div class="book-card">
-                    <div class="book-title">The Hunger Games Series</div>
-                    <div class="book-author">Suzanne Collins</div>
-                </div>
-                <div class="book-card">
-                    <div class="book-title">The Alchemyst (Book 1)</div>
-                    <div class="book-author">Michael Scott</div>
-                </div>
-                <div class="book-card">
-                    <div class="book-title">The Wish in the Dark</div>
-                    <div class="book-author">Christina Lauren</div>
-                </div>
-                <div class="book-card">
-                    <div class="book-title">Artemis Fowl (Book 1-2)</div>
-                    <div class="book-author">Eoin Colfer</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- LEARNING JOURNAL SECTION -->
-    <section id="journal" class="section fade-in">
-        <div class="container">
-            <h2 class="section-title">My Learning Journal 📝</h2>
-            <div class="journal-entries">
-                <div class="journal-entry">
-                    <div class="entry-date">Today's Reflection</div>
-                    <h3>What I'm Learning</h3>
-                    <p>Every day I'm discovering something new - whether it's a piano technique, a new art style, or how science works in everyday things like cooking and experiments.</p>
-                </div>
-                <div class="journal-entry">
-                    <div class="entry-date">My Journey</div>
-                    <h3>Growth Mindset 🦋</h3>
-                    <p>I believe that challenges help me grow. Even when something is difficult, I know that practice and persistence will help me improve. My piano competition wins taught me tha[...]</p>
-                </div>
-                <div class="journal-entry">
-                    <div class="entry-date">Goals Ahead</div>
-                    <h3>What's Next?</h3>
-                    <p>I'm excited to learn calculus, master more difficult violin and piano pieces, expand my card business, and help others through my lemonade stand. Every goal is a new advent[...]</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CONTACT SECTION -->
-    <section id="contact" class="section contact-section fade-in">
-        <div class="container">
-            <h2 class="section-title">Let's Connect! 💌</h2>
-            <div class="contact-content">
-                <p>I'd love to hear from you! Whether you want to chat about music, art, or just say hi!</p>
-                <div class="contact-options">
-                    <div class="contact-card">
-                        <h3>📧 Email</h3>
-                        <p>Feel free to reach out - I'll respond as soon as I can!</p>
-                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ishzartworld@gmail.com" target="_blank" class="contact-link">Send me an email</a>
+            <section id="projects" class="section fade-in">
+                <div class="container">
+                    <h2 class="section-title">My Projects & Goals</h2>
+                    <div class="projects-grid">
+                        <div class="project-card">
+                            <div class="project-header">📚</div>
+                            <h3>Reading Challenge</h3>
+                            <p>Trying to read more books and discover new favorites every month.</p>
+                            <span class="project-status">Ongoing</span>
+                        </div>
+                        <div class="project-card">
+                            <div class="project-header">🎻</div>
+                            <h3>Music Practice</h3>
+                            <p>Training, performing, and winning competitions. Currently working on harder classical pieces!</p>
+                            <span class="project-status">Ongoing</span>
+                        </div>
+                        <div class="project-card">
+                            <div class="project-header">💃</div>
+                            <h3>Dance & Performance</h3>
+                            <p>Expressing myself through movement and performing on stage</p>
+                            <span class="project-status">Ongoing</span>
+                        </div>
+                        <div class="project-card">
+                            <div class="project-header">🎨</div>
+                            <h3>Card Business</h3>
+                            <p>Starting my own handmade card business! Creating beautiful, unique cards</p>
+                            <span class="project-status">In Progress</span>
+                        </div>
+                        <div class="project-card">
+                            <div class="project-header">🍋</div>
+                            <h3>Lemonade Stand for Charity</h3>
+                            <p>Planning to run a lemonade stand and donate the proceeds to a good cause</p>
+                            <span class="project-status">Planning</span>
+                        </div>
+                        <div class="project-card">
+                            <div class="project-header">📖</div>
+                            <h3>Learning German 🇩🇪</h3>
+                            <p>Mastering a new language and diving into German culture!</p>
+                            <span class="project-status">In Progress</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
+            </section>
 
-    <!-- Game Player Modal -->
-    <div id="gameModal" class="game-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center;">
-        <div class="game-modal-content" style="width: 95%; height: 95%; background: white; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column;">
-            <button class="game-close" onclick="closeGameModal()" style="padding: 10px 20px; background: #FF69B4; color: white; border: none; cursor: pointer; font-size: 18px; align-self: flex-start; border-radius: 0 0 10px 0;">← Back</button>
-            <div style="flex: 1; display: flex; align-items: center; justify-content: center; background: #f5f5f5;">
-                <div class="loading-spinner"></div>
+            <!-- BOOKS SECTION -->
+            <section id="books" class="section alternate fade-in">
+                <div class="container">
+                    <h2 class="section-title">Books I've Read This Year 📚</h2>
+                    <p style="text-align: center; margin-bottom: 20px;">Some of my favorite reads from the past year!</p>
+                    <div class="books-grid">
+                        <div class="book-card">
+                            <div class="book-title">Percy Jackson Series</div>
+                            <div class="book-author">Rick Riordan</div>
+                        </div>
+                        <div class="book-card">
+                            <div class="book-title">Heroes of Olympus Series</div>
+                            <div class="book-author">Rick Riordan</div>
+                        </div>
+                        <div class="book-card">
+                            <div class="book-title">Trials of Apollo Series</div>
+                            <div class="book-author">Rick Riordan</div>
+                        </div>
+                        <div class="book-card">
+                            <div class="book-title">Red Queen Series</div>
+                            <div class="book-author">Victoria Aveyard</div>
+                        </div>
+                        <div class="book-card">
+                            <div class="book-title">The Inheritance Games (Book 1-2)</div>
+                            <div class="book-author">Jennifer Lynn Barnes</div>
+                        </div>
+                        <div class="book-card">
+                            <div class="book-title">Harry Potter Series</div>
+                            <div class="book-author">J.K. Rowling (Reread)</div>
+                        </div>
+                        <div class="book-card">
+                            <div class="book-title">The Hunger Games Series</div>
+                            <div class="book-author">Suzanne Collins</div>
+                        </div>
+                        <div class="book-card">
+                            <div class="book-title">Scythe Series</div>
+                            <div class="book-author">Neal Shusterman</div>
+                        </div>
+                        <div class="book-card">
+                            <div class="book-title">The Alchemyst (Book 1)</div>
+                            <div class="book-author">Michael Scott</div>
+                        </div>
+                        <div class="book-card">
+                            <div class="book-title">The Wish in the Dark</div>
+                            <div class="book-author">Christina Lauren</div>
+                        </div>
+                        <div class="book-card">
+                            <div class="book-title">Artemis Fowl (Book 1-2)</div>
+                            <div class="book-author">Eoin Colfer</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- LEARNING JOURNAL SECTION -->
+            <section id="journal" class="section fade-in">
+                <div class="container">
+                    <h2 class="section-title">Learning Journal</h2>
+                    <div class="journal-box">
+                        <div class="journal-entry">
+                            <h3>July</h3>
+                            <p>I explored more creative coding ideas and learned how to make interactive sections on a webpage.</p>
+                        </div>
+                        <div class="journal-entry">
+                            <h3>August</h3>
+                            <p>I started focusing on my reading goals and found new books I love.</p>
+                        </div>
+                        <div class="journal-entry">
+                            <h3>September</h3>
+                            <p>I continued building my creative skills and planning ideas for future projects.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <div id="modal" class="modal hidden">
+            <div class="modal-content">
+                <button class="close-btn" onclick="closeModal()">×</button>
+                <div id="modal-body"></div>
             </div>
-            <iframe id="gameFrame" style="width: 100%; height: 100%; border: none; display: none; flex: 1;" sandbox="allow-same-origin allow-scripts allow-forms allow-pointer-lock"></iframe>
         </div>
     </div>
 
-    <!-- FOOTER -->
-    <footer class="footer">
-        <p>&copy; 2024 NutellaWaffle. Made with 💜 and creativity.</p>
-        <p>Scroll back to <a href="#home">top</a></p>
-    </footer>
-
-    <!-- Link to JavaScript file -->
     <script src="script.js"></script>
-    <script>
-        // Theme Toggle
-        function toggleTheme() {
-            const body = document.body;
-            const button = document.getElementById('theme-toggle');
-            
-            if (body.classList.contains('dark-mode')) {
-                body.classList.remove('dark-mode');
-                button.textContent = '🌙';
-                localStorage.setItem('theme', 'light');
-            } else {
-                body.classList.add('dark-mode');
-                button.textContent = '☀️';
-                localStorage.setItem('theme', 'dark');
-            }
-        }
-
-        // Load saved theme
-        window.addEventListener('load', function() {
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'dark') {
-                document.body.classList.add('dark-mode');
-                document.getElementById('theme-toggle').textContent = '☀️';
-            }
-        });
-
-        // Scroll animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.animationDelay = '0s';
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.fade-in').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Store game files with localStorage for persistence
-        const games = {
-            game1: null,
-            game2: null,
-            game3: null
-        };
-
-        // Check if this is a shared game view
-        const urlParams = new URLSearchParams(window.location.search);
-        const gameId = urlParams.get('g');
-
-        function loadDogImage() {
-            const dogImg = document.getElementById('dogImage');
-            dogImg.src = 'https://images.unsplash.com/photo-1633722715463-d30628cad4ae?w=800&h=800&fit=crop&q=90';
-            dogImg.onerror = function() {
-                dogImg.src = 'https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg?w=800&h=800&fit=crop';
-            };
-        }
-
-        function loadGamesFromStorage() {
-            const game1Data = localStorage.getItem('game1_data');
-            if (game1Data) {
-                games.game1 = game1Data;
-            }
-            const game2Data = localStorage.getItem('game2_data');
-            if (game2Data) {
-                games.game2 = game2Data;
-            }
-            const game3Data = localStorage.getItem('game3_data');
-            if (game3Data) {
-                games.game3 = game3Data;
-                document.getElementById('game3ShareContainer').style.display = 'block';
-            }
-        }
-
-        function handleGameUpload(event, gameIdVar) {
-            const file = event.target.files[0];
-            if (file && (file.name.endsWith('.html') || file.name.endsWith('.htm'))) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    localStorage.setItem(gameIdVar + '_data', e.target.result);
-                    localStorage.setItem(gameIdVar + '_filename', file.name);
-                    games[gameIdVar] = e.target.result;
-                    
-                    if (gameIdVar === 'game3') {
-                        document.getElementById('game3ShareContainer').style.display = 'block';
-                    }
-                    
-                    document.getElementById('gameFile' + gameIdVar.replace('game', '')).value = '';
-                };
-                reader.readAsText(file);
-            } else {
-                alert('Please upload an HTML file (.html or .htm)');
-            }
-        }
-
-        function playGame(gameIdVar) {
-            if (games[gameIdVar]) {
-                const gameModal = document.getElementById('gameModal');
-                const gameFrame = document.getElementById('gameFrame');
-                const spinner = gameModal.querySelector('.loading-spinner');
-                
-                gameModal.style.display = 'flex';
-                spinner.style.display = 'block';
-                gameFrame.style.display = 'none';
-                
-                setTimeout(() => {
-                    const blob = new Blob([games[gameIdVar]], { type: 'text/html' });
-                    gameFrame.src = URL.createObjectURL(blob);
-                    
-                    gameFrame.onload = () => {
-                        spinner.style.display = 'none';
-                        gameFrame.style.display = 'block';
-                    };
-                }, 300);
-            }
-        }
-
-        function closeGameModal() {
-            const gameModal = document.getElementById('gameModal');
-            gameModal.style.display = 'none';
-            document.getElementById('gameFrame').src = '';
-        }
-
-        function toggleShareLink(gameIdVar) {
-            if (!games[gameIdVar]) {
-                alert('Please upload a game first!');
-                return;
-            }
-            
-            const linkContainer = document.getElementById(gameIdVar + 'LinkContainer');
-            const linkElement = document.getElementById(gameIdVar + 'Link');
-            
-            if (linkContainer.style.display === 'none') {
-                const gameNumber = gameIdVar.replace('game', '');
-                const gameLink = window.location.origin + window.location.pathname + '?g=' + gameNumber;
-                
-                linkElement.textContent = gameLink;
-                linkContainer.style.display = 'block';
-            } else {
-                linkContainer.style.display = 'none';
-            }
-        }
-
-        function copyToClipboard(elementId) {
-            const element = document.getElementById(elementId);
-            const text = element.textContent;
-            
-            navigator.clipboard.writeText(text).then(function() {
-                alert('Link copied to clipboard! 📋 You can now send it to your friends!');
-            }).catch(function(err) {
-                const textarea = document.createElement('textarea');
-                textarea.value = text;
-                document.body.appendChild(textarea);
-                textarea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textarea);
-                alert('Link copied to clipboard! 📋 You can now send it to your friends!');
-            });
-        }
-
-        function playSharedGame() {
-            if (gameId && games['game' + gameId]) {
-                playGame('game' + gameId);
-            }
-        }
-
-        // Add click handlers for game boxes
-        document.addEventListener('DOMContentLoaded', function() {
-            const game1Box = document.getElementById('game1');
-            const game2Box = document.getElementById('game2');
-            const game3Box = document.getElementById('game3');
-            
-            if (game1Box) {
-                game1Box.addEventListener('click', function(e) {
-                    if (games.game1) {
-                        playGame('game1');
-                    } else {
-                        document.getElementById('gameFile1').click();
-                    }
-                });
-            }
-            
-            if (game2Box) {
-                game2Box.addEventListener('click', function(e) {
-                    if (games.game2) {
-                        playGame('game2');
-                    } else {
-                        document.getElementById('gameFile2').click();
-                    }
-                });
-            }
-            
-            if (game3Box) {
-                game3Box.addEventListener('click', function(e) {
-                    if (games.game3) {
-                        playGame('game3');
-                    } else {
-                        document.getElementById('gameFile3').click();
-                    }
-                });
-            }
-        });
-
-        window.addEventListener('load', function() {
-            loadDogImage();
-            loadGamesFromStorage();
-            
-            if (gameId) {
-                playSharedGame();
-            }
-        });
-    </script>
 </body>
 </html>
