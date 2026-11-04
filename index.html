@@ -3,211 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chocolateistuff | My Website</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <title>NutellaWaffle - Creative & Curious</title>
 </head>
 <body>
-    <div class="page-shell">
-        <header class="topbar">
-            <div class="container nav-container">
-                <div class="brand">Chocolateistuff</div>
-                <nav class="main-nav">
-                    <a href="#about">About</a>
-                    <a href="#interests">Interests</a>
-                    <a href="#projects">Projects</a>
-                    <a href="#books">Books</a>
-                    <a href="#journal">Journal</a>
-                </nav>
-            </div>
-        </header>
+    <p style="font-family: sans-serif; text-align: center; margin-top: 20vh; color: #6b5274;">Loading the original website…</p>
+    <script>
+        (async function restoreOriginalSite() {
+            const originalUrl = 'https://raw.githubusercontent.com/Chocolateistuff/I-am-awesome-/f7f34cfa0251b5b52a2260d33906f139e241cc88/index.html';
+            try {
+                const response = await fetch(originalUrl);
+                if (!response.ok) throw new Error('Could not load the saved original website.');
+                let html = await response.text();
 
-        <main>
-            <section id="hero" class="hero section">
-                <div class="container hero-content">
-                    <div class="hero-text">
-                        <p class="eyebrow">Welcome to my world</p>
-                        <h1>Hi! I'm <span>Chocolateistuff</span></h1>
-                        <p class="tagline">Book lover • Creator • Dreamer • Future entrepreneur</p>
-                        <div class="cta-row">
-                            <a href="#books" class="btn primary">See what I read</a>
-                            <a href="#projects" class="btn secondary">Explore my projects</a>
-                        </div>
-                    </div>
-                    <div class="hero-visual">
-                        <div class="emoji-orb">📚✨</div>
-                    </div>
-                </div>
-            </section>
+                // Keep the original page and all of its sections/features, changing only the requested details.
+                html = html.replace('</style>', `
+                    /* Bookshelf spines */
+                    .books-grid {
+                        display: flex !important;
+                        flex-wrap: wrap;
+                        align-items: flex-end;
+                        justify-content: center;
+                        gap: 8px;
+                        padding: 24px 12px 0;
+                        border-bottom: 18px solid #9a653d;
+                        border-radius: 6px 6px 0 0;
+                        background: linear-gradient(to bottom, transparent 0 94%, #c28a57 94% 100%);
+                    }
+                    .book-card.book-spine {
+                        width: 62px;
+                        height: 230px;
+                        padding: 12px 8px;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: space-between;
+                        border: 0;
+                        border-left: 5px solid rgba(255,255,255,.25);
+                        border-radius: 4px 8px 2px 2px;
+                        color: #fff;
+                        background: linear-gradient(90deg, rgba(0,0,0,.2), transparent 25%), #7952a0;
+                        box-shadow: 3px 4px 5px rgba(45, 28, 20, .25);
+                        writing-mode: vertical-rl;
+                        transition: transform .2s ease, box-shadow .2s ease;
+                    }
+                    .book-card.book-spine:nth-child(4n+2) { background-color: #b94f70; }
+                    .book-card.book-spine:nth-child(4n+3) { background-color: #3c7282; }
+                    .book-card.book-spine:nth-child(4n+4) { background-color: #987139; }
+                    .book-card.book-spine:hover {
+                        transform: translateY(-10px) rotate(2deg);
+                        box-shadow: 5px 8px 10px rgba(45, 28, 20, .3);
+                    }
+                    .book-card.book-spine .book-title {
+                        color: #fff !important;
+                        font-size: 13px;
+                        font-weight: 700;
+                        margin: 0;
+                    }
+                    .book-card.book-spine .book-author {
+                        color: rgba(255,255,255,.9);
+                        font-size: 11px;
+                        opacity: 1;
+                    }
+                    .dog-picture-fallback { font-size: 120px; text-align: center; padding: 25px; }
+                    @media (max-width: 768px) {
+                        .book-card.book-spine { width: 52px; height: 195px; padding: 10px 6px; }
+                    }
+                </style>`);
 
-            <section id="about" class="section fade-in">
-                <div class="container">
-                    <h2 class="section-title">About Me</h2>
-                    <div class="about-box">
-                        <p>Hi! I'm a creative, curious person who loves making things, learning new things, and getting lost in a good story. I enjoy reading fantasy, crafting, playing music, and dreaming up ideas for future projects.</p>
-                        <p>I love spending time doing things that spark my imagination and help me grow, whether that's through writing, art, learning a new language, or exploring creative business ideas.</p>
-                    </div>
-                </div>
-            </section>
+                html = html.replaceAll('class="book-card"', 'class="book-card book-spine"');
+                const scythe = '<div class="book-card book-spine"><div class="book-title">Scythe Series</div><div class="book-author">Neal Shusterman</div></div>';
+                const alchemyst = '<div class="book-title">The Alchemyst (Book 1)</div>';
+                if (!html.includes('Scythe Series') && html.includes(alchemyst)) {
+                    html = html.replace(alchemyst, scythe + alchemyst);
+                }
+                html = html.replace('<img id="dogImage"', '<div class="dog-picture-fallback" aria-label="Dog">🐶</div><img id="dogImage" onerror="this.style.display=\'none\'"');
 
-            <section id="interests" class="section alternate fade-in">
-                <div class="container">
-                    <h2 class="section-title">My Interests</h2>
-                    <div class="interests-grid">
-                        <div class="interest-card" onclick="openModal('readingInterest')">
-                            <div class="interest-icon">📖</div>
-                            <h3>Reading</h3>
-                        </div>
-                        <div class="interest-card" onclick="openModal('artsInterest')">
-                            <div class="interest-icon">🎨</div>
-                            <h3>Arts & Crafts</h3>
-                        </div>
-                        <div class="interest-card" onclick="openModal('musicInterest')">
-                            <div class="interest-icon">🎵</div>
-                            <h3>Piano & Violin</h3>
-                        </div>
-                        <div class="interest-card" onclick="openModal('singingInterest')">
-                            <div class="interest-icon">🎤</div>
-                            <h3>Singing</h3>
-                        </div>
-                        <div class="interest-card" onclick="openModal('danceInterest')">
-                            <div class="interest-icon">💃</div>
-                            <h3>Dance</h3>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="projects" class="section fade-in">
-                <div class="container">
-                    <h2 class="section-title">My Projects & Goals</h2>
-                    <div class="projects-grid">
-                        <div class="project-card">
-                            <div class="project-header">📚</div>
-                            <h3>Reading Challenge</h3>
-                            <p>Trying to read more books and discover new favorites every month.</p>
-                            <span class="project-status">Ongoing</span>
-                        </div>
-                        <div class="project-card">
-                            <div class="project-header">🎻</div>
-                            <h3>Music Practice</h3>
-                            <p>Training, performing, and winning competitions. Currently working on harder classical pieces!</p>
-                            <span class="project-status">Ongoing</span>
-                        </div>
-                        <div class="project-card">
-                            <div class="project-header">💃</div>
-                            <h3>Dance & Performance</h3>
-                            <p>Expressing myself through movement and performing on stage</p>
-                            <span class="project-status">Ongoing</span>
-                        </div>
-                        <div class="project-card">
-                            <div class="project-header">🎨</div>
-                            <h3>Card Business</h3>
-                            <p>Starting my own handmade card business! Creating beautiful, unique cards</p>
-                            <span class="project-status">In Progress</span>
-                        </div>
-                        <div class="project-card">
-                            <div class="project-header">🍋</div>
-                            <h3>Lemonade Stand for Charity</h3>
-                            <p>Planning to run a lemonade stand and donate the proceeds to a good cause</p>
-                            <span class="project-status">Planning</span>
-                        </div>
-                        <div class="project-card">
-                            <div class="project-header">📖</div>
-                            <h3>Learning German 🇩🇪</h3>
-                            <p>Mastering a new language and diving into German culture!</p>
-                            <span class="project-status">In Progress</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- BOOKS SECTION -->
-            <section id="books" class="section alternate fade-in">
-                <div class="container">
-                    <h2 class="section-title">Books I've Read This Year 📚</h2>
-                    <p style="text-align: center; margin-bottom: 20px;">Some of my favorite reads from the past year!</p>
-                    <div class="books-grid">
-                        <div class="book-card">
-                            <div class="book-title">Percy Jackson Series</div>
-                            <div class="book-author">Rick Riordan</div>
-                        </div>
-                        <div class="book-card">
-                            <div class="book-title">Heroes of Olympus Series</div>
-                            <div class="book-author">Rick Riordan</div>
-                        </div>
-                        <div class="book-card">
-                            <div class="book-title">Trials of Apollo Series</div>
-                            <div class="book-author">Rick Riordan</div>
-                        </div>
-                        <div class="book-card">
-                            <div class="book-title">Red Queen Series</div>
-                            <div class="book-author">Victoria Aveyard</div>
-                        </div>
-                        <div class="book-card">
-                            <div class="book-title">The Inheritance Games (Book 1-2)</div>
-                            <div class="book-author">Jennifer Lynn Barnes</div>
-                        </div>
-                        <div class="book-card">
-                            <div class="book-title">Harry Potter Series</div>
-                            <div class="book-author">J.K. Rowling (Reread)</div>
-                        </div>
-                        <div class="book-card">
-                            <div class="book-title">The Hunger Games Series</div>
-                            <div class="book-author">Suzanne Collins</div>
-                        </div>
-                        <div class="book-card">
-                            <div class="book-title">Scythe Series</div>
-                            <div class="book-author">Neal Shusterman</div>
-                        </div>
-                        <div class="book-card">
-                            <div class="book-title">The Alchemyst (Book 1)</div>
-                            <div class="book-author">Michael Scott</div>
-                        </div>
-                        <div class="book-card">
-                            <div class="book-title">The Wish in the Dark</div>
-                            <div class="book-author">Christina Lauren</div>
-                        </div>
-                        <div class="book-card">
-                            <div class="book-title">Artemis Fowl (Book 1-2)</div>
-                            <div class="book-author">Eoin Colfer</div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- LEARNING JOURNAL SECTION -->
-            <section id="journal" class="section fade-in">
-                <div class="container">
-                    <h2 class="section-title">Learning Journal</h2>
-                    <div class="journal-box">
-                        <div class="journal-entry">
-                            <h3>July</h3>
-                            <p>I explored more creative coding ideas and learned how to make interactive sections on a webpage.</p>
-                        </div>
-                        <div class="journal-entry">
-                            <h3>August</h3>
-                            <p>I started focusing on my reading goals and found new books I love.</p>
-                        </div>
-                        <div class="journal-entry">
-                            <h3>September</h3>
-                            <p>I continued building my creative skills and planning ideas for future projects.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
-
-        <div id="modal" class="modal hidden">
-            <div class="modal-content">
-                <button class="close-btn" onclick="closeModal()">×</button>
-                <div id="modal-body"></div>
-            </div>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
+                document.open();
+                document.write(html);
+                document.close();
+            } catch (error) {
+                document.body.innerHTML = '<p style="font-family:sans-serif;text-align:center;margin:15vh auto;max-width:36em;padding:1em;color:#6b5274">I couldn’t load the restored website just now. Please refresh, or <a href="https://github.com/Chocolateistuff/I-am-awesome-/blob/f7f34cfa0251b5b52a2260d33906f139e241cc88/index.html">open the saved original website file</a>.</p>';
+                console.error(error);
+            }
+        })();
+    </script>
 </body>
 </html>
